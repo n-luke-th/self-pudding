@@ -1,0 +1,15 @@
+
+# FVM Version Cache
+.fvm/
+
+# Firebase
+.flutter-plugins-dependencies
+firebase.json
+lib/firebase_options.dart
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+# running
+.dart_tool/
+.vscode/
+.idea/
