@@ -9,6 +9,41 @@
 
 - Firebase: Authentication, Database (Firestore)
 
+## Folder Structure
+
+```text
+lib/
+├── main.dart # App entry point & ProviderScope
+│
+├── core/ # Shared code, not a specific feature
+│   └── firebase_providers.dart # Global providers for Firestore/Auth
+│
+└── features/ # Main app features
+|   ├── auth/
+|   │   ├── data/
+|   │   |   └── auth_repository.dart
+|   │   └── providers/
+|   │   |   └── auth_providers.dart
+│   |
+|   ├── collections/
+│   |   ├── data/
+│   │   |   ├── collection_model.dart
+│   │   |   └── collections_repository.dart
+│   |   ├── presentation/
+│   │   |   └── collections_list_screen.dart
+│   |   └── providers/
+│   |   |   └── collections_providers.dart
+│   |
+|   └── puddings/
+|   |   ├── data/
+│   |   |   ├── pudding_model.dart
+│   |   |   └── puddings_repository.dart
+|   |   ├── presentation/
+│   |   |   └── puddings_screen.dart
+|   |   └── providers/
+|   |   |   └── puddings_providers.dart
+```
+
 ## Getting Started
 
 0. make sure you have config the latest changes of the app by run command: `git pull`
@@ -30,6 +65,9 @@
 
 ### Launcher icon
 
+(source: https://pub.dev/packages/icons_launcher)
+
+- run command `flutter pub add -d icons_launcher`
 - config the [`launcher_icons.yaml`](launcher_icons.yaml) file then
 - (everytime after changes were made) regenerate the launcher icon based on the [`launcher_icons.yaml`](launcher_icons.yaml) file by run command: `dart run icons_launcher:create --path launcher_icons.yaml`
 

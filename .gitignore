@@ -13,3 +13,4 @@ ios/Runner/GoogleService-Info.plist
 .dart_tool/
 .vscode/
 .idea/
+build/
