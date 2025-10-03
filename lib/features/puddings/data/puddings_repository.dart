@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore;
-import 'package:pudding/core/firestore_collections_name.dart';
+import 'package:pudding/core/utils/firestore_collections_name.dart';
 import 'package:pudding/features/puddings/data/pudding_model.dart';
 
 /// Handles data operations for [Pudding] within a subcollection.

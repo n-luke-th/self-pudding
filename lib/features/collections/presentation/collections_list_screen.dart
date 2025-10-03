@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show Timestamp;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pudding/core/components/page_view_wrappers.dart';
 import 'package:pudding/core/logger/logger_providers.dart'
     show TalkerScreen, logger;
+import 'package:pudding/core/models/appbar_cfg_model.dart';
 
 import 'package:pudding/features/auth/providers/auth_providers.dart';
 import 'package:pudding/features/collections/data/collection_model.dart';
@@ -20,19 +22,15 @@ class CollectionsListScreen extends ConsumerWidget {
     // 2. "watch" a provider to get its value and rebuild when it changes.
     final collectionsAsyncValue = ref.watch(collectionsStreamProviderAsCollab);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Collections'),
-        actions: [
-          IconButton.filled(
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => TalkerScreen(talker: logger),
-              ),
-            ),
-            icon: const Icon(Icons.logo_dev_rounded),
-          ),
-        ],
+    return pageViewWrapper(
+      appBarCfg: AppbarCfgModel(
+        leading: IconButton.outlined(
+          onPressed: () async =>
+              await ref.read(authRepositoryProvider).signOut(),
+          icon: const Icon(Icons.logout_outlined),
+        ),
+        titleStr: 'Collections',
+        animateColor: true,
       ),
       body: collectionsAsyncValue.when(
         // The .when() method is perfect for handling loading/error states.
@@ -48,6 +46,7 @@ class CollectionsListScreen extends ConsumerWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
+                      settings: RouteSettings(name: collection.id),
                       // Navigate to the screen for this specific collection.
                       builder: (context) => PuddingsScreen(
                         collectionId: collection.id,

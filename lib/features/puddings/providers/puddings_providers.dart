@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:pudding/core/firebase_providers.dart' show firestoreProvider;
+import 'package:pudding/core/providers/firebase_providers.dart'
+    show firestoreProvider;
 import 'package:pudding/features/puddings/data/pudding_model.dart';
 import 'package:pudding/features/puddings/data/puddings_repository.dart';
 

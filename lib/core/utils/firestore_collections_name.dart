@@ -1,6 +1,6 @@
 /// const collections and sub-collections name for Firestore
 class FirestoreCollectionsName {
-  FirestoreCollectionsName._();
+  const FirestoreCollectionsName._();
 
   /// 'collections'
   static const String collections = 'collections';

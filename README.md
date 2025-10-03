@@ -16,12 +16,18 @@ lib/
 ├── main.dart # App entry point & ProviderScope
 │
 ├── core/ # Shared code, not a specific feature
-│   └── firebase_providers.dart # Global providers for Firestore/Auth
-│
+|   ├── providers/
+│   |   └── firebase_providers.dart # Global providers for Firestore/Auth
+|   ├── logger/
+│   |   └── logger_providers.dart
+|   └──  utils/
+|   |   └── firestore_collections_name.dart
 └── features/ # Main app features
 |   ├── auth/
 |   │   ├── data/
 |   │   |   └── auth_repository.dart
+|   |   ├── presentation/
+│   │   |   └── auth_gate.dart
 |   │   └── providers/
 |   │   |   └── auth_providers.dart
 │   |

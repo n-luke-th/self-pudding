@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show Provider, StreamProvider;
-import 'package:pudding/core/firebase_providers.dart' show firestoreProvider;
+import 'package:pudding/core/providers/firebase_providers.dart'
+    show firestoreProvider;
 import 'package:pudding/features/auth/providers/auth_providers.dart'
     show userIdProvider;
 import 'package:pudding/features/collections/data/collection_model.dart';

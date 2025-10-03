@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show Timestamp;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pudding/core/components/page_view_wrappers.dart';
 import 'package:pudding/core/logger/logger_providers.dart' show logger;
+import 'package:pudding/core/models/appbar_cfg_model.dart';
 import 'package:pudding/features/puddings/data/pudding_model.dart';
 import 'package:pudding/features/puddings/providers/puddings_providers.dart';
 
@@ -21,8 +23,8 @@ class PuddingsScreen extends ConsumerWidget {
     // Riverpod will create a separate provider for each unique collectionId.
     final puddingsAsyncValue = ref.watch(puddingsStreamProvider(collectionId));
 
-    return Scaffold(
-      appBar: AppBar(title: Text(collectionTitle)),
+    return pageViewWrapper(
+      appBarCfg: AppbarCfgModel(titleStr: collectionTitle),
       body: puddingsAsyncValue.when(
         data: (p) => ListView.builder(
           itemCount: p.length,

@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart' show User;
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show Provider, StreamProvider;
-import 'package:pudding/core/firebase_providers.dart' show firebaseAuthProvider;
+import 'package:pudding/core/providers/firebase_providers.dart'
+    show firebaseAuthProvider;
 import 'package:pudding/features/auth/data/auth_repository.dart'
     show AuthRepository;
 

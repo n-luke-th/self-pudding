@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pudding/core/firebase_providers.dart';
+import 'package:pudding/core/providers/firebase_providers.dart';
 import 'package:pudding/core/logger/logger_providers.dart';
 
 // The AuthRepository is responsible for handling authentication logic.
@@ -39,6 +39,17 @@ class AuthRepository {
       logger.handle(e, st, "Sign in anonymously process has error");
     } finally {
       logger.verbose("sign-in anonymously process done");
+    }
+  }
+
+  /// signs user out of the session
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+    } catch (e, st) {
+      logger.handle(e, st, "Sign out process has error");
+    } finally {
+      logger.verbose("sign out process done");
     }
   }
 

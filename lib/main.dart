@@ -6,8 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart'
     show FlutterNativeSplash;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart'
+    show FlutterSmartDialog;
+import 'package:pudding/core/components/page_view_wrappers.dart';
 import 'package:pudding/core/logger/logger_providers.dart'
-    show logger, TalkerRouteObserver, TalkerWrapper;
+    show logger, TalkerRouteObserver;
+import 'package:pudding/features/auth/presentation/auth_gate.dart';
 import 'features/auth/providers/auth_providers.dart';
 import 'features/collections/presentation/collections_list_screen.dart';
 import 'firebase_options.dart';
@@ -51,8 +55,11 @@ class Pudding extends ConsumerWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      navigatorObservers: [TalkerRouteObserver(logger)],
-      title: 'Collab Collections',
+      navigatorObservers: [
+        TalkerRouteObserver(logger),
+        FlutterSmartDialog.observer,
+      ],
+      title: 'Pudding',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         useMaterial3: true,
@@ -64,6 +71,7 @@ class Pudding extends ConsumerWidget {
           centerTitle: true,
         ),
       ),
+      builder: FlutterSmartDialog.init(),
       home: authState.when(
         data: (User? user) {
           if (user != null) {
@@ -75,31 +83,7 @@ class Pudding extends ConsumerWidget {
         },
         loading: () =>
             const Scaffold(body: Center(child: CircularProgressIndicator())),
-        error: (err, stack) => Scaffold(
-          body: Center(
-            child: TalkerWrapper(talker: logger, child: Text('Error: $err')),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// A simple widget to allow anonymous sign-in for the demo.
-class AuthGate extends ConsumerWidget {
-  const AuthGate({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          child: const Text('Sign In Anonymously'),
-          onPressed: () {
-            // We use ref.read() inside a callback to call a function on the provider.
-            ref.read(authRepositoryProvider).signInAnonymously();
-          },
-        ),
+        error: (err, stack) => errorPageWrapper(e: err.toString()),
       ),
     );
   }

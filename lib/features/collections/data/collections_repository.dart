@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore;
-import 'package:pudding/core/firestore_collections_name.dart';
+import 'package:pudding/core/utils/firestore_collections_name.dart';
 import 'package:pudding/features/collections/data/collection_model.dart';
 
 /// This repository handles all data operations for [TheCollection].
