@@ -7,6 +7,33 @@ Release history is adapting the [Keep a Changelog](https://keepachangelog.com/en
 - Theme config
 - Multi-locales support
 
+## Initial Development: [`0.1.2`] - 2025-10-06
+
+### Added
+
+- Loading overlay works.
+- Panel `SigninAnonyPanel` added.
+
+### Changed
+
+- Design edited.
+
+### Deprecated
+
+- none
+
+### Removed
+
+- none
+
+### Fixed
+
+- none
+
+### Others
+
+- `flutter_svg` direct dependency is added.
+
 ## Initial Development: [`0.1.1`] - 2025-10-03
 
 ### Added

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show Timestamp;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pudding/core/components/loading_overlay.dart';
 import 'package:pudding/core/components/page_view_wrappers.dart';
 import 'package:pudding/core/logger/logger_providers.dart'
     show TalkerScreen, logger;
@@ -17,6 +18,12 @@ class CollectionsListScreen extends ConsumerWidget {
   // final StreamProvider<List<TheCollection>> streamProvider;
   const CollectionsListScreen({super.key});
 
+  Future<void> handleSignOut(WidgetRef ref) async {
+    LoadingOverlay.showDefaultLoading(msg: "Logging out");
+    await ref.read(authRepositoryProvider).signOut();
+    LoadingOverlay.dismissLoading();
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // 2. "watch" a provider to get its value and rebuild when it changes.
@@ -25,8 +32,8 @@ class CollectionsListScreen extends ConsumerWidget {
     return pageViewWrapper(
       appBarCfg: AppbarCfgModel(
         leading: IconButton.outlined(
-          onPressed: () async =>
-              await ref.read(authRepositoryProvider).signOut(),
+          onPressed: () async => await handleSignOut(ref),
+
           icon: const Icon(Icons.logout_outlined),
         ),
         titleStr: 'Collections',

@@ -7,7 +7,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart'
     show FlutterNativeSplash;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart'
-    show FlutterSmartDialog;
+    show FlutterSmartDialog, SmartDialog;
 import 'package:pudding/core/components/page_view_wrappers.dart';
 import 'package:pudding/core/logger/logger_providers.dart'
     show logger, TalkerRouteObserver;
@@ -76,6 +76,7 @@ class Pudding extends ConsumerWidget {
         data: (User? user) {
           if (user != null) {
             // If logged in, show the main collections screen
+            SmartDialog.dismiss(force: true);
             return const CollectionsListScreen();
           }
           // If not logged in, show a simple sign-in button

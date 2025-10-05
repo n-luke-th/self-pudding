@@ -16,18 +16,24 @@ lib/
 ├── main.dart # App entry point & ProviderScope
 │
 ├── core/ # Shared code, not a specific feature
+|   ├── components/
+|   |   ├── drawer_panel.dart
+|   |   ├── loading_overlay.dart
+|   |   └── page_view_wrappers.dart
 |   ├── providers/
 │   |   └── firebase_providers.dart # Global providers for Firestore/Auth
 |   ├── logger/
 │   |   └── logger_providers.dart
 |   └──  utils/
-|   |   └── firestore_collections_name.dart
+|   |   ├── firestore_collections_name.dart
+|   |   └── svg_color_mapper.dart
 └── features/ # Main app features
 |   ├── auth/
 |   │   ├── data/
 |   │   |   └── auth_repository.dart
 |   |   ├── presentation/
-│   │   |   └── auth_gate.dart
+│   │   |   ├── auth_gate.dart
+|   |   |   └── signin_anony.dart
 |   │   └── providers/
 |   │   |   └── auth_providers.dart
 │   |
