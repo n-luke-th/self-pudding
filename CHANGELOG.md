@@ -7,6 +7,37 @@ Release history is adapting the [Keep a Changelog](https://keepachangelog.com/en
 - Theme config
 - Multi-locales support
 
+## Initial Development: [`0.1.3`] - 2025-10-10
+
+### Added
+
+- `FullPageLoading`, the full page loading indicator.
+- Panel `SigninEmailPanel` added.
+- `Parts` class added for reusable stuff like `defaultEdgeInsetsAll` and etc.
+- Dedicated `Routing` class for shorthanded routing calls.
+
+### Changed
+
+- Adjusted the way of initialize app and initial page loading.
+- Added more `meta` tags for web.
+- Edited initial `title` tag for web.
+
+### Deprecated
+
+- none
+
+### Removed
+
+- none
+
+### Fixed
+
+- none
+
+### Others
+
+- `talker_riverpod_logger` direct dependency is added and upgraded other dependencies.
+
 ## Initial Development: [`0.1.2`] - 2025-10-06
 
 ### Added

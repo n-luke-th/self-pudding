@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show Timestamp;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pudding/core/components/full_page_loading.dart';
 import 'package:pudding/core/components/loading_overlay.dart';
 import 'package:pudding/core/components/page_view_wrappers.dart';
 import 'package:pudding/core/logger/logger_providers.dart'
     show TalkerScreen, logger;
 import 'package:pudding/core/models/appbar_cfg_model.dart';
+import 'package:pudding/core/utils/routing.dart';
 
 import 'package:pudding/features/auth/providers/auth_providers.dart';
 import 'package:pudding/features/collections/data/collection_model.dart';
@@ -51,23 +53,16 @@ class CollectionsListScreen extends ConsumerWidget {
                 title: Text(collection.title),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      settings: RouteSettings(name: collection.id),
-                      // Navigate to the screen for this specific collection.
-                      builder: (context) => PuddingsScreen(
-                        collectionId: collection.id,
-                        collectionTitle: collection.title,
-                      ),
-                    ),
-                  );
+                  // Navigate to the screen for this specific collection.
+                  Routing.pushToPuddingsScreen(context, collection: collection);
                 },
               ),
             );
           },
         ),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
+        loading: () => FullPageLoading.df,
+        error: (err, stack) =>
+            errorPageWrapper(e: "loading collections error: $err"),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _addCollectionDialog(context, ref),
@@ -88,7 +83,7 @@ class CollectionsListScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Routing.popPage(context),
             child: const Text('Cancel'),
           ),
           ElevatedButton(
@@ -111,7 +106,7 @@ class CollectionsListScreen extends ConsumerWidget {
                     .addCollection(newCollection);
 
                 logger.info("new collection '${newCollection.title}' created");
-                Navigator.of(context).pop();
+                Routing.popPage(context);
               }
             },
             child: const Text('Create'),

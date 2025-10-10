@@ -1,5 +1,7 @@
 # Pudding
 
+A Flutter project designed for a couple to pudding (putting) things on the lists for future reference.
+
 ## Features
 
 - Create a set of items for saving such things together with your partner for future reference.
@@ -19,6 +21,8 @@ lib/
 |   ├── components/
 |   |   ├── drawer_panel.dart
 |   |   ├── loading_overlay.dart
+|   |   ├── full_page_loading.dart
+|   |   ├── parts.dart
 |   |   └── page_view_wrappers.dart
 |   ├── providers/
 │   |   └── firebase_providers.dart # Global providers for Firestore/Auth
@@ -26,6 +30,7 @@ lib/
 │   |   └── logger_providers.dart
 |   └──  utils/
 |   |   ├── firestore_collections_name.dart
+|   |   ├── routing.dart
 |   |   └── svg_color_mapper.dart
 └── features/ # Main app features
 |   ├── auth/
@@ -33,6 +38,7 @@ lib/
 |   │   |   └── auth_repository.dart
 |   |   ├── presentation/
 │   │   |   ├── auth_gate.dart
+│   │   |   ├── signin_email.dart
 |   |   |   └── signin_anony.dart
 |   │   └── providers/
 |   │   |   └── auth_providers.dart

@@ -22,10 +22,6 @@ class LoadingOverlay {
   static void dismissLoading({bool force = false}) async {
     await SmartDialog.dismiss(status: SmartStatus.loading, force: force);
   }
-
-  static Widget showFullPageLoading() {
-    return pageViewWrapper(body: Center());
-  }
 }
 
 // TODO: customize this

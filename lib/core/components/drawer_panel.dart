@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pudding/core/logger/logger_providers.dart'
-    show TalkerScreen, logger;
+import 'package:pudding/core/utils/routing.dart';
 
 class DrawerPanel extends StatelessWidget {
   const DrawerPanel({super.key});
@@ -37,12 +36,7 @@ class DrawerPanel extends StatelessWidget {
           ),
           ListTile(
             title: IconButton.filled(
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  settings: RouteSettings(name: "dev-log"),
-                  builder: (context) => TalkerScreen(talker: logger),
-                ),
-              ),
+              onPressed: () => Routing.pushToDevLogPage(context),
               icon: const Icon(Icons.logo_dev_rounded, color: Colors.black),
             ),
           ),

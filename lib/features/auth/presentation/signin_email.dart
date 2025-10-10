@@ -6,14 +6,19 @@ import 'package:pudding/core/components/page_view_wrappers.dart';
 import 'package:pudding/core/components/parts.dart';
 import 'package:pudding/features/auth/providers/auth_providers.dart';
 
-class SigninAnonyPanel extends ConsumerWidget {
-  const SigninAnonyPanel({super.key});
+class SigninEmailPanel extends ConsumerWidget {
+  SigninEmailPanel({super.key});
+  final emailCtl = TextEditingController();
+  final pswdCtl = TextEditingController();
 
-  Future<void> handleSignInAnonymously(WidgetRef ref) async {
+  Future<void> handleSignIn(WidgetRef ref) async {
     // We use ref.read() inside a callback to call a function on the provider.
-    LoadingOverlay.showDefaultLoading(msg: "Signing you in anonymously");
-    await ref.read(authRepositoryProvider).signInAnonymously();
+    LoadingOverlay.showDefaultLoading(msg: "Signing you in");
+    await ref
+        .read(authRepositoryProvider)
+        .signInWithEmail(email: emailCtl.text.trim(), pwd: pswdCtl.text);
     LoadingOverlay.dismissLoading();
+    SmartDialog.dismiss(force: true);
   }
 
   @override
@@ -37,7 +42,7 @@ class SigninAnonyPanel extends ConsumerWidget {
               spacing: 16,
               children: [
                 Padding(
-                  padding: Parts.smallEdgeInsetsAll,
+                  padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape: Parts.defaultShapeOutlinedBorder,
@@ -45,9 +50,9 @@ class SigninAnonyPanel extends ConsumerWidget {
                       elevation: 16,
                       minimumSize: Size.square(65),
                     ),
-                    onPressed: () async => await handleSignInAnonymously(ref),
+                    onPressed: () async => await handleSignIn(ref),
                     child: Text(
-                      "Confirm signin anonymously",
+                      "SIGNIN",
                       softWrap: true,
                       maxLines: 2,
                       textAlign: TextAlign.center,
