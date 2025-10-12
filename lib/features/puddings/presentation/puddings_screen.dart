@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show Timestamp;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pudding/core/components/full_page_loading.dart';
-import 'package:pudding/core/components/page_view_wrappers.dart';
+import 'package:pudding/common/components/full_page_loading.dart';
+import 'package:pudding/common/components/view_wrappers.dart';
 import 'package:pudding/core/logger/logger_providers.dart' show logger;
 import 'package:pudding/core/models/appbar_cfg_model.dart';
-import 'package:pudding/core/utils/routing.dart';
+import 'package:pudding/common/utils/routing.dart';
 import 'package:pudding/features/puddings/data/pudding_model.dart';
 import 'package:pudding/features/puddings/providers/puddings_providers.dart';
 
@@ -44,7 +44,7 @@ class PuddingsScreen extends ConsumerWidget {
         ),
         loading: () => FullPageLoading.df,
         error: (err, stack) =>
-            errorPageWrapper(e: "loading puddings error: $err"),
+            errorPageWrapper(errorValue: "loading puddings error: $err"),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _addPuddingDialog(context, ref),

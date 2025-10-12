@@ -6,6 +6,9 @@ import 'package:talker/talker.dart'
 final logger = Talker(
   settings: TalkerSettings(
     timeFormat: TimeFormat.yearMonthDayAndTime,
-    titles: {TalkerKey.error: 'Pudding error'},
+    titles: {
+      TalkerKey.error: 'Pudding error',
+      TalkerKey.route: "Pudding routing",
+    },
   ),
 );

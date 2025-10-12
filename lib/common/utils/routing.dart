@@ -5,6 +5,7 @@ import 'package:pudding/core/logger/logger_providers.dart'
 import 'package:pudding/features/collections/data/collection_model.dart';
 import 'package:pudding/features/puddings/presentation/puddings_screen.dart';
 
+/// a class that use for routing between pages
 class Routing {
   const Routing._();
 

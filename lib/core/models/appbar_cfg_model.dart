@@ -3,6 +3,7 @@ import 'package:flutter/material.dart'
 
 class AppbarCfgModel extends AppBar {
   final String titleStr;
+  final List<Widget>? overrideActions;
   AppbarCfgModel({
     super.key,
     // super.actions,
@@ -38,11 +39,12 @@ class AppbarCfgModel extends AppBar {
     super.toolbarTextStyle,
     super.useDefaultSemanticsOrder,
     this.titleStr = "Pudding",
+    this.overrideActions,
   });
 
   @override
   Widget? get title => Text(titleStr);
 
   @override
-  List<Widget>? get actions => [EndDrawerButton()];
+  List<Widget>? get actions => overrideActions ?? [EndDrawerButton()];
 }

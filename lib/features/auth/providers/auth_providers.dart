@@ -21,3 +21,11 @@ final authStateChangesProvider = StreamProvider<User?>((ref) {
 final userIdProvider = Provider<String?>((ref) {
   return ref.watch(authRepositoryProvider).currentUserId;
 });
+
+final user = Provider<User?>((ref) {
+  return ref.watch(authRepositoryProvider).currentUser;
+});
+
+final isSignIn = Provider<bool>((ref) {
+  return ref.watch(authRepositoryProvider).isSignIn;
+});

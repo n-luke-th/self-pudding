@@ -7,6 +7,35 @@ Release history is adapting the [Keep a Changelog](https://keepachangelog.com/en
 - Theme config
 - Multi-locales support
 
+## Initial Development: [`0.1.4`] - 2025-10-13
+
+### Added
+
+- Auto retrieve app package info.
+- Blurry background behind the default loading indicator and signin options panels.
+- Custom toasts with details panel.
+
+### Changed
+
+- Reorganized folder structure.
+- A working signin with email panel.
+
+### Deprecated
+
+- none
+
+### Removed
+
+- none
+
+### Fixed
+
+- none
+
+### Others
+
+- `talker_riverpod_logger`, `blurrycontainer`, `lucide_icons_flutter`, `glass_kit`, `validatorless`, `package_info_plus`, and `soft_edge_blur` direct dependencies are added.
+
 ## Initial Development: [`0.1.3`] - 2025-10-10
 
 ### Added

@@ -4,6 +4,12 @@ import 'package:flutter/widgets.dart';
 class Parts {
   const Parts._();
 
+  /// EdgeInsets.zero;
+  static const zeroEdgeInsets = EdgeInsets.zero;
+
+  /// EdgeInsets.all(4.0);
+  static const tinyEdgeInsetsAll = EdgeInsets.all(4.0);
+
   /// EdgeInsets.all(8.0);
   static const smallEdgeInsetsAll = EdgeInsets.all(8.0);
 

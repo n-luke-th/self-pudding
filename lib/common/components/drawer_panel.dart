@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pudding/core/utils/routing.dart';
+import 'package:pudding/common/utils/routing.dart';
 
 class DrawerPanel extends StatelessWidget {
   const DrawerPanel({super.key});

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart'
     show SmartDialog;
-import 'package:pudding/core/components/full_page_loading.dart';
-import 'package:pudding/core/components/page_view_wrappers.dart';
+import 'package:pudding/common/components/app_info_cont.dart';
+import 'package:pudding/common/components/full_page_loading.dart';
+import 'package:pudding/common/components/view_wrappers.dart';
 import 'package:pudding/core/models/appbar_cfg_model.dart';
 import 'package:pudding/features/auth/presentation/signin_anony.dart';
 import 'package:pudding/features/auth/presentation/signin_email.dart';
@@ -20,9 +21,15 @@ class AuthGate extends ConsumerWidget {
       data: (user) {
         if (user == null) {
           return pageViewWrapper(
-            appBarCfg: AppbarCfgModel(titleStr: "Welcome!"),
-
+            extendBodyBehindAppBar: true,
+            extendBody: true,
+            showEndDrawer: false,
+            appBarCfg: AppbarCfgModel(
+              titleStr: "Welcome!",
+              overrideActions: const [],
+            ),
             body: loginOptionsSelectionView(),
+            bottomSheet: AppInfoCont(),
           );
         } else {
           SmartDialog.dismiss(force: true);
@@ -30,39 +37,51 @@ class AuthGate extends ConsumerWidget {
         }
       },
       loading: () => FullPageLoading.df,
-      error: (err, stack) => errorPageWrapper(e: err.toString()),
+      error: (err, stack) => errorPageWrapper(errorValue: err.toString()),
     );
   }
 
   Center loginOptionsSelectionView() {
+    const double spacing = 24.0;
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 32,
-        children: [
-          ElevatedButton.icon(
-            onPressed: () => SmartDialog.show(
-              builder: (context) => SigninAnonyPanel(),
-              permanent: true,
-              alignment: Alignment.centerRight,
-              usePenetrate: true,
-              clickMaskDismiss: false,
-            ),
-            label: const Text("Sign in anonymously"),
-          ),
-          // TODO: customize
-          ElevatedButton.icon(
-            onPressed: () => SmartDialog.show(
-              builder: (context) => SigninEmailPanel(),
-              permanent: true,
-              alignment: Alignment.centerRight,
-              usePenetrate: true,
-              clickMaskDismiss: false,
-            ),
-            label: const Text("Sign in with email"),
-          ),
-        ],
+      child: layoutBuilder(
+        smallLayout: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: spacing,
+          children: [renderSigninAnonyBtn(), renderSigninEmailBtn()],
+        ),
+        bigLayout: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: spacing,
+          children: [renderSigninAnonyBtn(), renderSigninEmailBtn()],
+        ),
       ),
+    );
+  }
+
+  ElevatedButton renderSigninAnonyBtn() {
+    return ElevatedButton.icon(
+      onPressed: () => SmartDialog.show(
+        keepSingle: true,
+        builder: (context) => SigninAnonyPanel(),
+        alignment: Alignment.centerLeft,
+        usePenetrate: true,
+        clickMaskDismiss: false,
+      ),
+      label: const Text("Sign in anonymously"),
+    );
+  }
+
+  ElevatedButton renderSigninEmailBtn() {
+    return ElevatedButton.icon(
+      onPressed: () => SmartDialog.show(
+        keepSingle: true,
+        builder: (context) => SigninEmailPanel(),
+        alignment: Alignment.centerRight,
+        usePenetrate: true,
+        clickMaskDismiss: false,
+      ),
+      label: const Text("Sign in with email"),
     );
   }
 }

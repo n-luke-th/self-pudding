@@ -1,8 +1,9 @@
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_svg/svg.dart' show SvgPicture;
-import 'package:pudding/core/components/page_view_wrappers.dart';
-import 'package:pudding/core/utils/svg_color_mapper.dart';
+import 'package:pudding/common/parts.dart';
+import 'package:pudding/common/utils/svg_color_mapper.dart';
 
 class LoadingOverlay {
   const LoadingOverlay._();
@@ -13,7 +14,11 @@ class LoadingOverlay {
       msg: msg ?? lt,
       animationType: SmartAnimationType.scale,
       useAnimation: true,
-      maskColor: Color.alphaBlend(Colors.cyan, Colors.indigoAccent),
+      maskWidget: BlurryContainer.expand(
+        elevation: 16,
+        padding: Parts.zeroEdgeInsets,
+        child: Container(color: Color.fromRGBO(100, 193, 255, 0.6)),
+      ),
       alignment: Alignment.center,
       builder: (_) => CustomLoadingIndicator(type: 2, msg: msg ?? lt),
     );
