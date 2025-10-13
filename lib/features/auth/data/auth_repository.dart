@@ -34,7 +34,22 @@ class AuthRepository {
 
   String? get currentLanguageCode => _auth.languageCode;
 
-  /// method for sign-in with given email and password.
+  /// method for create an account with email and password
+  Future<void> signUpWithEmail({
+    required String email,
+    required String pwd,
+  }) async {
+    try {
+      await _auth.createUserWithEmailAndPassword(email: email, password: pwd);
+    } catch (e, st) {
+      logger.error("Sign-up with email process has error", e, st);
+      rethrow;
+    } finally {
+      logger.verbose("sign-up with email process done");
+    }
+  }
+
+  /// method for sign-in with given email and password
   Future<void> signInWithEmail({
     required String email,
     required String pwd,
@@ -49,7 +64,7 @@ class AuthRepository {
     }
   }
 
-  /// A simple method for anonymous sign-in.
+  /// A simple method for anonymous sign-in
   Future<void> signInAnonymously() async {
     try {
       await _auth.signInAnonymously();

@@ -7,6 +7,12 @@ A Flutter project designed for a couple to pudding (putting) things on the lists
 - Create a set of items for saving such things together with your partner for future reference.
 - Edit each pudding (item) on the list in real time with your partner.
 
+## Platforms Currently Support
+
+- Android
+- iOS
+- Web
+
 ## Tech Stack & System Architecture
 
 - Firebase: Authentication, Database (Firestore)
@@ -20,7 +26,7 @@ A Flutter project designed for a couple to pudding (putting) things on the lists
             ├── app_info_cont.dart
             ├── drawer_panel.dart
             ├── full_page_loading.dart
-            ├── icon_btns.dart
+            ├── btns.dart
             ├── loading_overlay.dart
             ├── toast_overlay.dart
             ├── view_wrappers.dart

@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuthException;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:pudding/common/components/icon_btns.dart' show closeBtn;
+import 'package:pudding/common/components/btns.dart'
+    show closeBtn, bigTextOnlyBtn;
 import 'package:pudding/common/components/loading_overlay.dart';
 import 'package:pudding/common/components/view_wrappers.dart'
     show layoutBuilder;
@@ -88,22 +89,14 @@ class SigninAnonyPanel extends ConsumerWidget {
 
   List<Widget> signinPanelElements(WidgetRef ref) {
     return [
-      Padding(
-        padding: Parts.smallEdgeInsetsAll,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            shape: Parts.defaultShapeOutlinedBorder,
-            enableFeedback: true,
-            elevation: 16,
-            minimumSize: Size.square(65),
-          ),
-          onPressed: () async => await handleSignInAnonymously(ref),
-          child: Text(
-            "Confirm signin anonymously",
-            softWrap: true,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-          ),
+      bigTextOnlyBtn(
+        onPressed: () async => await handleSignInAnonymously(ref),
+        // TODO: localize
+        text: const Text(
+          "Confirm signin anonymously",
+          softWrap: true,
+          maxLines: 2,
+          textAlign: TextAlign.center,
         ),
       ),
     ];

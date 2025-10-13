@@ -33,7 +33,8 @@ class LoadingOverlay {
 }
 
 // TODO: customize this
-// https://github.com/xdd666t/flutter_use/blob/master/lib/module/function/smart_dialog/widget/custom_loading.dart
+// adapted from https://github.com/xdd666t/flutter_use/blob/master/lib/module/function/smart_dialog/widget/custom_loading.dart
+/// custom loading indicator widget
 class CustomLoadingIndicator extends StatefulWidget {
   const CustomLoadingIndicator({
     super.key,

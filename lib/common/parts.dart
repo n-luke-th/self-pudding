@@ -16,6 +16,12 @@ class Parts {
   /// EdgeInsets.all(16.0)
   static const defaultEdgeInsetsAll = EdgeInsets.all(16.0);
 
+  /// EdgeInsets.all(32.0)
+  static const bigEdgeInsetsAll = EdgeInsets.all(32.0);
+
+  /// EdgeInsets.all(64.0)
+  static const hugeEdgeInsetsAll = EdgeInsets.all(64.0);
+
   /// BorderRadius.circular(16.0)
   static final defaultBorderRadius = BorderRadius.circular(16.0);
 

@@ -7,6 +7,34 @@ Release history is adapting the [Keep a Changelog](https://keepachangelog.com/en
 - Theme config
 - Multi-locales support
 
+## Initial Development: [`0.1.5`] - 2025-10-13
+
+### Added
+
+- Signup panel added.
+
+### Changed
+
+- Code refactored.
+
+### Deprecated
+
+- none
+
+### Removed
+
+- none
+
+### Fixed
+
+- Fixed the keyboard is covered the dialog's contents when the dialog is shown (fixed screen not resizing).
+- Fixed the focus is not move to the next field of the interactive dialog when user clicks 'next' on the keyboard.
+- Linked the icon size param of the `closeBtn`.
+
+### Others
+
+- none
+
 ## Initial Development: [`0.1.4+1`] - 2025-10-13
 
 ### Added

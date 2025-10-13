@@ -14,39 +14,45 @@ import 'package:pudding/common/utils/show_and.dart';
 import 'package:pudding/features/auth/providers/auth_providers.dart';
 import 'package:validatorless/validatorless.dart' show Validatorless;
 
-/// panel for user to fill in their login credentials (email + password) to signin
-class SigninEmailPanel extends ConsumerStatefulWidget {
-  const SigninEmailPanel({super.key});
+/// panel for user to create login credentials using their email and password (signup)
+class SignupEmailPanel extends ConsumerStatefulWidget {
+  const SignupEmailPanel({super.key});
 
   @override
-  ConsumerState<SigninEmailPanel> createState() => _SigninEmailPanelState();
+  ConsumerState<SignupEmailPanel> createState() => _SigninEmailPanelState();
 }
 
-class _SigninEmailPanelState extends ConsumerState<SigninEmailPanel> {
+class _SigninEmailPanelState extends ConsumerState<SignupEmailPanel> {
   final emailCtl = TextEditingController();
   final pswdCtl = TextEditingController();
+  final pswd2Ctl = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final pswdFocus = FocusNode(debugLabel: 'pswdFocus');
+  final pswd2Focus = FocusNode(debugLabel: 'pswd2Focus');
   bool passwordVisible = false;
+  bool passwordVisible2 = false;
 
   @override
   void dispose() {
     emailCtl.dispose();
     pswdCtl.dispose();
+    pswd2Ctl.dispose();
     pswdFocus.dispose();
+    pswd2Focus.dispose();
     formKey.currentState?.dispose();
     super.dispose();
   }
 
-  Future<void> handleSignIn() async {
+  Future<void> handleSignUp() async {
     // We use ref.read() inside a callback to call a function on the provider.
     try {
       if (formKey.currentState!.validate()) {
-        LoadingOverlay.showDefaultLoading(msg: "Signing you in");
+        LoadingOverlay.showDefaultLoading(msg: "Signing you up");
         await ref
             .read(authRepositoryProvider)
-            .signInWithEmail(email: emailCtl.text.trim(), pwd: pswdCtl.text);
+            .signUpWithEmail(email: emailCtl.text.trim(), pwd: pswdCtl.text);
         pswdCtl.clear();
+        pswd2Ctl.clear();
       }
       // SmartDialog.dismiss(force: true);
     } catch (e, st) {
@@ -82,18 +88,6 @@ class _SigninEmailPanelState extends ConsumerState<SigninEmailPanel> {
                   onPressed: () => SmartDialog.dismiss(force: true),
                 ),
               ),
-              // test toast only
-              // Align(
-              //   alignment: AlignmentGeometry.topLeft,
-              //   child: IconButton.outlined(
-              //     onPressed: () => showErrorToastAndThrow(
-              //       msg: "invalid-credential",
-              //       msgDetails:
-              //           "Given credential is incorrect, malformed or has expired.",
-              //     ),
-              //     icon: Icon(Icons.abc_outlined),
-              //   ),
-              // ),
             ],
           ),
         ),
@@ -117,13 +111,13 @@ class _SigninEmailPanelState extends ConsumerState<SigninEmailPanel> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: signinPanelElements(),
+          children: signupPanelElements(),
         ),
       ),
     );
   }
 
-  List<Widget> signinPanelElements() {
+  List<Widget> signupPanelElements() {
     return [
       Padding(
         padding: Parts.smallEdgeInsetsAll,
@@ -148,47 +142,92 @@ class _SigninEmailPanelState extends ConsumerState<SigninEmailPanel> {
           onFieldSubmitted: (value) => pswdFocus.requestFocus(),
         ),
       ),
-      Padding(
-        padding: Parts.smallEdgeInsetsAll,
-        child: TextFormField(
-          // password
-          controller: pswdCtl,
-          focusNode: pswdFocus,
-          enableSuggestions: false,
-          autocorrect: false,
-          decoration: InputDecoration(
-            errorMaxLines: 2,
-            labelText: 'password',
 
-            // hintText: "strong-password",
-            icon: const Icon(LucideIcons.lockKeyhole),
-            suffixIcon: IconButton(
-              icon: Icon(
-                passwordVisible ? LucideIcons.eye : LucideIcons.eyeOff,
-                color: Theme.of(context).hintColor,
-              ),
-              onPressed: () {
-                setState(() {
-                  passwordVisible = !passwordVisible;
-                });
-              },
-            ),
-          ),
-          validator: Validatorless.required("required your password!"),
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          keyboardType: TextInputType.visiblePassword,
-          textInputAction: TextInputAction.go,
-          onFieldSubmitted: (value) => handleSignIn(),
-          onTapOutside: (event) => FocusScope.of(context).unfocus(),
-          obscureText: !passwordVisible,
-        ),
+      _pswdBox(
+        ctl: pswdCtl,
+        pswdFocus: pswdFocus,
+        passwordVisible: passwordVisible,
+        textInputAction: TextInputAction.next,
+        // onFieldSubmitted: (_) async => await handleSignUp(),
+        onFieldSubmitted: (value) => pswd2Focus.requestFocus(),
+        validator:
+            // TODO: localize
+            Validatorless.multiple([
+              Validatorless.required("required your password!"),
+              Validatorless.min(6, "required at least 6 characters!"),
+            ]),
+        onSuffixPressed: () => setState(() {
+          passwordVisible = !passwordVisible;
+        }),
+      ),
+
+      _pswdBox(
+        ctl: pswd2Ctl,
+        pswdFocus: pswd2Focus,
+        labelText: "confirm password",
+        validator: (_) {
+          if (pswd2Ctl.text == pswdCtl.text && pswdCtl.text.isNotEmpty) {
+            return null;
+          } else {
+            // TODO: localize
+            return "passwords not match!";
+          }
+        },
+        onSuffixPressed: () => setState(() {
+          passwordVisible2 = !passwordVisible2;
+        }),
+        passwordVisible: passwordVisible2,
+        // onFieldSubmitted: (_) async => await handleSignUp(),
       ),
 
       bigTextOnlyBtn(
-        onPressed: () async => await handleSignIn(),
+        onPressed: () async => await handleSignUp(),
         // TODO: localize
-        text: const Text("SIGNIN", textAlign: TextAlign.center),
+        text: const Text("SIGNUP", textAlign: TextAlign.center),
       ),
     ];
+  }
+
+  Padding _pswdBox({
+    required TextEditingController ctl,
+    required String? Function(String?)? validator,
+    required void Function()? onSuffixPressed,
+    required bool passwordVisible,
+    required FocusNode pswdFocus,
+    void Function(String)? onFieldSubmitted,
+    String labelText = 'password',
+    TextInputAction textInputAction = TextInputAction.done,
+  }) {
+    return Padding(
+      padding: Parts.smallEdgeInsetsAll,
+      child: TextFormField(
+        // password
+        controller: ctl,
+        focusNode: pswdFocus,
+        enableSuggestions: false,
+        autocorrect: false,
+        decoration: InputDecoration(
+          errorMaxLines: 2,
+          labelText: labelText,
+
+          // hintText: "strong-password",
+          icon: const Icon(LucideIcons.lockKeyhole),
+          suffixIcon: IconButton(
+            icon: Icon(
+              passwordVisible ? LucideIcons.eye : LucideIcons.eyeOff,
+              color: Theme.of(context).hintColor,
+            ),
+            onPressed: onSuffixPressed,
+          ),
+        ),
+        validator: validator,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        keyboardType: TextInputType.visiblePassword,
+        textInputAction: textInputAction,
+        onFieldSubmitted: onFieldSubmitted,
+        onTapOutside: (event) => FocusScope.of(context).unfocus(),
+        obscureText: !passwordVisible,
+      ),
+    );
   }
 }
