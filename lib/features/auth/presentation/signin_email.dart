@@ -13,6 +13,7 @@ import 'package:pudding/common/utils/show_and.dart';
 import 'package:pudding/features/auth/providers/auth_providers.dart';
 import 'package:validatorless/validatorless.dart' show Validatorless;
 
+/// panel for user to fill in their login credentials (email + password) to signin
 class SigninEmailPanel extends ConsumerStatefulWidget {
   const SigninEmailPanel({super.key});
 
@@ -48,14 +49,9 @@ class _SigninEmailPanelState extends ConsumerState<SigninEmailPanel> {
       // SmartDialog.dismiss(force: true);
     } catch (e, st) {
       if (e is FirebaseAuthException) {
-        showErrorToastAndThrow(
-          e: e,
-          st: st,
-          msg: e.code,
-          msgDetails: e.message,
-        );
+        showErrorToastAndLog(e: e, st: st, msg: e.code, msgDetails: e.message);
       } else {
-        showErrorToastAndThrow(e: e, st: st, msg: e.toString());
+        showErrorToastAndLog(e: e, st: st, msg: e.toString());
       }
     } finally {
       LoadingOverlay.dismissLoading(force: true);

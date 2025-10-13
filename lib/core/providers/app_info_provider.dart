@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart' show PackageInfo;
 import 'package:pudding/core/models/app_info_model.dart';
 
+/// retrieve platform friendly name
 String getPlatformName() {
   if (kIsWeb) {
     return 'Web';

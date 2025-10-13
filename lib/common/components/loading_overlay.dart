@@ -5,6 +5,9 @@ import 'package:flutter_svg/svg.dart' show SvgPicture;
 import 'package:pudding/common/parts.dart';
 import 'package:pudding/common/utils/svg_color_mapper.dart';
 
+/// all in one class to handle custom overlay loading indicator
+///
+/// for full page indicator please refer for `full_page_loading.dart`
 class LoadingOverlay {
   const LoadingOverlay._();
 
@@ -30,6 +33,7 @@ class LoadingOverlay {
 }
 
 // TODO: customize this
+// https://github.com/xdd666t/flutter_use/blob/master/lib/module/function/smart_dialog/widget/custom_loading.dart
 class CustomLoadingIndicator extends StatefulWidget {
   const CustomLoadingIndicator({
     super.key,

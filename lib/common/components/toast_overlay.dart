@@ -5,10 +5,15 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pudding/common/parts.dart';
 import 'package:pudding/core/logger/logger_providers.dart';
 
+/// all in one class to handle custom toast/notification banner
+///
 class ToastOverlay {
   const ToastOverlay._();
   static const Duration displayTime = Duration(seconds: 3);
 
+  /// display the generic toast
+  ///
+  /// for combination of show toast and some actions please refer to file `show_and.dart`
   static Future<void> showGeneralToast({
     required String msg,
     String? details,
@@ -21,6 +26,9 @@ class ToastOverlay {
     );
   }
 
+  /// display the error toast
+  ///
+  /// for combination of show toast and some actions please refer to file `show_and.dart`
   static Future<void> showErrorToast({
     required String msg,
     String? details,
@@ -56,6 +64,9 @@ enum ToastType {
 }
 
 // TODO: customize this
+
+/// custom design toast
+/// with details panel on-the-go
 class CustomToast extends StatelessWidget {
   final ToastType type;
   final String msg;
@@ -119,45 +130,7 @@ class CustomToast extends StatelessWidget {
       child: Align(
         alignment: alignment,
         child: InkWell(
-          onTap: () async => await SmartDialog.show(
-            alignment: Alignment.bottomCenter,
-            builder: (context) {
-              logger.verbose("${type.name} toast details panel: $msgDetails");
-
-              return GlassContainer.clearGlass(
-                borderRadius: Parts.aboveDefaultBorderRadius,
-                height: MediaQuery.sizeOf(context).height * 0.46,
-                width: MediaQuery.sizeOf(context).height * 0.9,
-                gradient: LinearGradient(
-                  colors: [
-                    getColor().withValues(alpha: 0.2),
-                    getColor().withValues(alpha: 0.4),
-                    getColor().withValues(alpha: 0.6),
-                    getColor().withValues(alpha: 0.8),
-                    getColor().withValues(alpha: 1),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-                margin: Parts.smallEdgeInsetsAll,
-                padding: Parts.smallEdgeInsetsAll,
-
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      msg,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                    if (msgDetails != null)
-                      Text(msgDetails!, textAlign: TextAlign.center),
-                  ],
-                ),
-              );
-            },
-          ),
+          onTap: () async => await showDetailsPanel(),
           child: Container(
             margin: Parts.tinyEdgeInsetsAll,
             padding: Parts.defaultEdgeInsetsAll,
@@ -181,6 +154,48 @@ class CustomToast extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> showDetailsPanel() async {
+    return await SmartDialog.show(
+      alignment: Alignment.bottomCenter,
+      builder: (context) {
+        logger.verbose("${type.name} toast details panel: $msgDetails");
+
+        return GlassContainer.clearGlass(
+          borderRadius: Parts.aboveDefaultBorderRadius,
+          height: MediaQuery.sizeOf(context).height * 0.46,
+          width: MediaQuery.sizeOf(context).height * 0.9,
+          gradient: LinearGradient(
+            colors: [
+              getColor().withValues(alpha: 0.2),
+              getColor().withValues(alpha: 0.4),
+              getColor().withValues(alpha: 0.6),
+              getColor().withValues(alpha: 0.8),
+              getColor().withValues(alpha: 1),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+          margin: Parts.smallEdgeInsetsAll,
+          padding: Parts.smallEdgeInsetsAll,
+
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                msg,
+                style: Theme.of(context).textTheme.headlineMedium,
+                textAlign: TextAlign.center,
+              ),
+              if (msgDetails != null)
+                Text(msgDetails!, textAlign: TextAlign.center),
+            ],
+          ),
+        );
+      },
     );
   }
 }

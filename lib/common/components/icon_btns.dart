@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+/// a beautiful close button component
 IconButton closeBtn({
   String tooltip = "close",
   double size = 32,

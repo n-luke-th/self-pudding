@@ -1,7 +1,8 @@
 import 'package:pudding/common/components/toast_overlay.dart';
 import 'package:pudding/core/logger/logger_providers.dart';
 
-Future<void> showErrorToastAndThrow({
+/// log error and display the error
+Future<void> showErrorToastAndLog({
   Object? e,
   StackTrace? st,
   String msg = "error",

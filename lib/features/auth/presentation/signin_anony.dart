@@ -11,6 +11,7 @@ import 'package:pudding/common/parts.dart';
 import 'package:pudding/common/utils/show_and.dart';
 import 'package:pudding/features/auth/providers/auth_providers.dart';
 
+/// panel to confirm user for anonymous sign in
 class SigninAnonyPanel extends ConsumerWidget {
   const SigninAnonyPanel({super.key});
 
@@ -23,9 +24,9 @@ class SigninAnonyPanel extends ConsumerWidget {
       // SmartDialog.dismiss(force: true);
     } catch (e, st) {
       if (e is FirebaseAuthException) {
-        showErrorToastAndThrow(e: e, st: st, msg: e.code);
+        showErrorToastAndLog(e: e, st: st, msg: e.code, msgDetails: e.message);
       } else {
-        showErrorToastAndThrow(e: e, st: st, msg: e.toString());
+        showErrorToastAndLog(e: e, st: st, msg: e.toString());
       }
     } finally {
       LoadingOverlay.dismissLoading(force: true);

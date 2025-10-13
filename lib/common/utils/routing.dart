@@ -9,10 +9,12 @@ import 'package:pudding/features/puddings/presentation/puddings_screen.dart';
 class Routing {
   const Routing._();
 
+  /// pop the last page in the stack
   static void popPage(BuildContext context) {
     return Navigator.of(context).pop();
   }
 
+  /// push to the developer logs page
   static Future<Object> pushToDevLogPage(BuildContext context) async {
     return await Navigator.of(context).push(
       MaterialPageRoute(
@@ -22,6 +24,7 @@ class Routing {
     );
   }
 
+  /// push to the puddings list page in a specific collection
   static Future<Object> pushToPuddingsScreen(
     BuildContext context, {
     required TheCollection collection,

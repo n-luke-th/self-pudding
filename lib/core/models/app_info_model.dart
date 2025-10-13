@@ -1,3 +1,4 @@
+/// a data model for information of the app retrieved from the pubspec.yaml and native calls
 class AppInfoModel {
   final String version;
   final String buildNumber;

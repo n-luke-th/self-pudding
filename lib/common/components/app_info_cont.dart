@@ -8,6 +8,7 @@ import 'package:pudding/core/models/app_info_model.dart';
 import 'package:pudding/core/providers/app_info_provider.dart'
     show appInfoProvider;
 
+/// the container component to display the platform of running app and the app version
 class AppInfoCont extends ConsumerWidget {
   final BoxDecoration? containerDecoration;
   const AppInfoCont({super.key, this.containerDecoration});

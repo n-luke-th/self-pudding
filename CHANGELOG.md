@@ -7,6 +7,32 @@ Release history is adapting the [Keep a Changelog](https://keepachangelog.com/en
 - Theme config
 - Multi-locales support
 
+## Initial Development: [`0.1.4+1`] - 2025-10-13
+
+### Added
+
+- Comments added.
+
+### Changed
+
+- Code refactored.
+
+### Deprecated
+
+- none
+
+### Removed
+
+- none
+
+### Fixed
+
+- none
+
+### Others
+
+- none
+
 ## Initial Development: [`0.1.4`] - 2025-10-13
 
 ### Added
