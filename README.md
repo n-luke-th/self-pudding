@@ -17,7 +17,25 @@ A Flutter project designed for a couple to pudding (putting) things on the lists
 
 - Firebase: Authentication, Database (Firestore)
 
+## Database schema
+
+```text
+/users/{userId}                                             # other user data, small cached stats
+
+/collections/{collectionId}                                 # metadata about each collection (ownerId, title, summary)
+
+/collections/{collectionId}/members/{userId}                # membership documents (role, joinedAt, displayName/email cached)
+
+/collections/{collectionId}/puddings/{puddingId}            # posts (previewUrl, notes, createdBy, createdAt, url)
+
+/invites/{inviteId}                                         # invitation documents (token, email, collectionId, expiresAt, inviterId, status)
+
+/userCollections/{userId}/collectionRefs/{collectionId}     # cached collection(s) summary and its metadata of a user so listing is a single, cheap read (collectionId, user role to the collection, title, etc.)
+```
+
 ## Folder Structure
+
+- from `lib\` as the root.
 
 ```text
 └── 📁lib

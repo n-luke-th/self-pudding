@@ -7,6 +7,36 @@ Release history is adapting the [Keep a Changelog](https://keepachangelog.com/en
 - Theme config
 - Multi-locales support
 
+## Initial Development: [`0.1.6`] - 2025-10-14
+
+### Added
+
+- Important fields of collection creation panel added.
+
+### Changed
+
+- Adjusted the initialization files of the app.
+- Using the global navigator key as the way to navigate (routing) between pages on app.
+- `CollectionDraftScreen` with related functions are being implemented.
+- Overall improvement.
+
+### Deprecated
+
+- none
+
+### Removed
+
+- none
+
+### Fixed
+
+- Fixed type 'Null' is not a subtype of type 'Object' where it is expected to be return type when routing to Talker page (dev log page).
+
+### Others
+
+- `choice` direct dependency is added.
+- Upgraded dependency constraints.
+
 ## Initial Development: [`0.1.5`] - 2025-10-13
 
 ### Added
@@ -16,6 +46,7 @@ Release history is adapting the [Keep a Changelog](https://keepachangelog.com/en
 ### Changed
 
 - Code refactored.
+- Overall improvement.
 
 ### Deprecated
 
@@ -73,6 +104,7 @@ Release history is adapting the [Keep a Changelog](https://keepachangelog.com/en
 
 - Reorganized folder structure.
 - A working signin with email panel.
+- Overall improvement.
 
 ### Deprecated
 

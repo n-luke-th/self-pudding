@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pudding/common/components/btns.dart'
-    show closeBtn, bigTextOnlyBtn;
+    show closeIconBtn, bigTextOnlyBtn;
 import 'package:pudding/common/components/loading_overlay.dart';
 import 'package:pudding/common/components/view_wrappers.dart'
     show layoutBuilder;
@@ -84,7 +84,7 @@ class _SigninEmailPanelState extends ConsumerState<SignupEmailPanel> {
               ),
               Align(
                 alignment: AlignmentGeometry.topRight,
-                child: closeBtn(
+                child: closeIconBtn(
                   onPressed: () => SmartDialog.dismiss(force: true),
                 ),
               ),
@@ -99,13 +99,7 @@ class _SigninEmailPanelState extends ConsumerState<SignupEmailPanel> {
     return Container(
       height: MediaQuery.sizeOf(context).height * heightFactor,
       width: MediaQuery.sizeOf(context).width * widthFactor,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: Parts.defaultBorderRadius,
-        boxShadow: [
-          BoxShadow(color: Colors.grey, blurRadius: 8, spreadRadius: 0.2),
-        ],
-      ),
+      decoration: Parts.defaultBoxDecoration,
       child: Form(
         key: formKey,
         child: Column(
@@ -124,11 +118,11 @@ class _SigninEmailPanelState extends ConsumerState<SignupEmailPanel> {
         child: TextFormField(
           // email field
           controller: emailCtl,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             errorMaxLines: 2,
             labelText: 'email',
             // hintText: "pudding@lukecreated.com",
-            icon: const Icon(LucideIcons.mail),
+            icon: Icon(LucideIcons.mail),
           ),
           // TODO: add localized text for email validator
           validator: Validatorless.multiple([
@@ -148,7 +142,6 @@ class _SigninEmailPanelState extends ConsumerState<SignupEmailPanel> {
         pswdFocus: pswdFocus,
         passwordVisible: passwordVisible,
         textInputAction: TextInputAction.next,
-        // onFieldSubmitted: (_) async => await handleSignUp(),
         onFieldSubmitted: (value) => pswd2Focus.requestFocus(),
         validator:
             // TODO: localize

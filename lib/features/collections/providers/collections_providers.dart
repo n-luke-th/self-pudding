@@ -1,15 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart'
-    show Provider, StreamProvider;
+    show Provider, StreamProvider, NotifierProvider;
 import 'package:pudding/core/providers/firebase_providers.dart'
     show firestoreProvider;
 import 'package:pudding/features/auth/providers/auth_providers.dart'
     show userIdProvider;
+import 'package:pudding/features/collections/data/collection_draft.dart';
 import 'package:pudding/features/collections/data/collection_model.dart';
 import 'package:pudding/features/collections/data/collections_repository.dart'
     show CollectionsRepository;
 
 /// Provider for the [CollectionsRepository].
-
 final collectionsRepositoryProvider = Provider<CollectionsRepository>((ref) {
   return CollectionsRepository(ref.watch(firestoreProvider));
 });
@@ -43,3 +43,7 @@ final collectionsStreamProviderAsCollab =
           .watch(collectionsRepositoryProvider)
           .getCollectionsStreamAsCollab(userId);
     });
+
+/// a provider holding a draft of [TheCollection] that could be created/edited by user
+final collectionDraftProvider =
+    NotifierProvider<CollectionDraft, TheCollection?>(() => CollectionDraft());

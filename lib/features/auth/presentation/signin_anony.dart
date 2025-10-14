@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:pudding/common/components/btns.dart'
-    show closeBtn, bigTextOnlyBtn;
+    show closeIconBtn, bigTextOnlyBtn;
 import 'package:pudding/common/components/loading_overlay.dart';
 import 'package:pudding/common/components/view_wrappers.dart'
     show layoutBuilder;
@@ -54,7 +54,7 @@ class SigninAnonyPanel extends ConsumerWidget {
             ),
             Align(
               alignment: AlignmentGeometry.topRight,
-              child: closeBtn(
+              child: closeIconBtn(
                 onPressed: () => SmartDialog.dismiss(force: true),
               ),
             ),
@@ -71,13 +71,7 @@ class SigninAnonyPanel extends ConsumerWidget {
   }) {
     return Container(
       height: MediaQuery.sizeOf(ctx).height * heightFactor,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: Parts.defaultBorderRadius,
-        boxShadow: [
-          BoxShadow(color: Colors.grey, blurRadius: 8, spreadRadius: 0.2),
-        ],
-      ),
+      decoration: Parts.defaultBoxDecoration,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,

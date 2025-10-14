@@ -16,6 +16,9 @@ import 'package:pudding/features/auth/presentation/signup_email.dart';
 import 'package:pudding/features/auth/providers/auth_providers.dart';
 import 'package:pudding/features/collections/presentation/collections_list_screen.dart';
 
+/// conditional gate rendering based on the login status of a user
+///
+/// with auth operations options (login, signup)
 class AuthGate extends ConsumerWidget {
   const AuthGate({super.key});
 

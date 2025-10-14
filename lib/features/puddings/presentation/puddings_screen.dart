@@ -5,7 +5,7 @@ import 'package:pudding/common/components/full_page_loading.dart';
 import 'package:pudding/common/components/view_wrappers.dart';
 import 'package:pudding/core/logger/logger_providers.dart' show logger;
 import 'package:pudding/core/models/appbar_cfg_model.dart';
-import 'package:pudding/common/utils/routing.dart';
+import 'package:pudding/core/navigation/routing.dart';
 import 'package:pudding/features/puddings/data/pudding_model.dart';
 import 'package:pudding/features/puddings/providers/puddings_providers.dart';
 
@@ -75,7 +75,7 @@ class PuddingsScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Routing.popPage(context),
+            onPressed: () => Routing.popPage(),
             child: const Text('Cancel'),
           ),
           ElevatedButton(
@@ -91,7 +91,7 @@ class PuddingsScreen extends ConsumerWidget {
                 ref
                     .read(puddingsRepositoryProvider)
                     .addPudding(collectionId, newPudding);
-                Routing.popPage(context);
+                Routing.popPage();
                 logger.info("new pudding added");
               }
             },

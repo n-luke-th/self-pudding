@@ -136,14 +136,14 @@ class CustomToast extends StatelessWidget {
             padding: Parts.defaultEdgeInsetsAll,
             decoration: BoxDecoration(
               color: getColor(),
-              borderRadius: Parts.aboveDefaultBorderRadius,
+              borderRadius: Parts.moreMediumBorderRadius,
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 //icon
                 Container(
-                  margin: const EdgeInsets.only(right: 15),
+                  margin: Parts.customEdgeInsetsRight(SizingScale.small),
                   child: getIcon(),
                 ),
 
@@ -164,7 +164,7 @@ class CustomToast extends StatelessWidget {
         logger.verbose("${type.name} toast details panel: $msgDetails");
 
         return GlassContainer.clearGlass(
-          borderRadius: Parts.aboveDefaultBorderRadius,
+          borderRadius: Parts.moreMediumBorderRadius,
           height: MediaQuery.sizeOf(context).height * 0.46,
           width: MediaQuery.sizeOf(context).height * 0.9,
           gradient: LinearGradient(

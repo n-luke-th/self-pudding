@@ -15,6 +15,12 @@ class Pudding {
     required this.timestamp,
   });
 
+  @override
+  String toString() {
+    super.toString();
+    return "Pudding: ${toFirestore().toString()}";
+  }
+
   factory Pudding.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
   ) {

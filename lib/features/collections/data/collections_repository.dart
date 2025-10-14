@@ -23,19 +23,16 @@ class CollectionsRepository {
 
   /// Get a real-time stream of collections where user is one of the collaborator(s).
   Stream<List<TheCollection>> getCollectionsStreamAsCollab(String userId) {
-    return _firestore
-        .collection(FirestoreCollectionsName.collections)
-        .where('collaborators', arrayContains: userId)
-        .snapshots()
-        .map((snapshot) {
-          return snapshot.docs
-              .map((doc) => TheCollection.fromFirestore(doc))
-              .toList();
-        });
+    // TODO: complete this
+    throw UnimplementedError(
+      '`getCollectionsStreamAsCollab` is not yet implemented',
+    );
   }
 
-  // Add a new collection document.
+  /// Add a new [collection] document.
   Future<void> addCollection(TheCollection collection) async {
-    await _firestore.collection('collections').add(collection.toFirestore());
+    await _firestore
+        .collection(FirestoreCollectionsName.collections)
+        .add(collection.toFirestore());
   }
 }

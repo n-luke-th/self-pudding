@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pudding/common/utils/routing.dart';
+import 'package:pudding/core/navigation/routing.dart';
 
 /// a drawer component
 class DrawerPanel extends StatelessWidget {
@@ -37,7 +37,7 @@ class DrawerPanel extends StatelessWidget {
           ),
           ListTile(
             title: IconButton.filled(
-              onPressed: () => Routing.pushToDevLogPage(context),
+              onPressed: () => Routing.pushToDevLogPage(),
               icon: const Icon(Icons.logo_dev_rounded, color: Colors.black),
             ),
           ),

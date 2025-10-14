@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:pudding/main.dart';
+import 'package:pudding/pudding_app.dart';
 
 void main() {
   testWidgets('Pudding app test', (WidgetTester tester) async {
