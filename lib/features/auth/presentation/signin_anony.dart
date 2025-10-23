@@ -47,7 +47,7 @@ class SigninAnonyPanel extends ConsumerWidget {
             layoutBuilder(
               smallLayout: renderCont(
                 ctx: context,
-                heightFactor: 0.3,
+                heightFactor: 0.25,
                 ref: ref,
               ),
               bigLayout: renderCont(ctx: context, heightFactor: 0.6, ref: ref),
@@ -75,7 +75,6 @@ class SigninAnonyPanel extends ConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: 0,
         children: signinPanelElements(ref),
       ),
     );
@@ -83,14 +82,17 @@ class SigninAnonyPanel extends ConsumerWidget {
 
   List<Widget> signinPanelElements(WidgetRef ref) {
     return [
-      bigTextOnlyBtn(
-        onPressed: () async => await handleSignInAnonymously(ref),
-        // TODO: localize
-        text: const Text(
-          "Confirm signin anonymously",
-          softWrap: true,
-          maxLines: 2,
-          textAlign: TextAlign.center,
+      Padding(
+        padding: Parts.defaultEdgeInsetsHorizontal,
+        child: bigTextOnlyBtn(
+          onPressed: () async => await handleSignInAnonymously(ref),
+          // TODO: localize
+          text: const Text(
+            "Confirm signin anonymously",
+            softWrap: true,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     ];

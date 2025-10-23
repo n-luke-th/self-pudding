@@ -1,107 +1,81 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' show Timestamp;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pudding/common/components/btns.dart'
-    show filledTextIconBtn, clearTextFieldIconBtn, secondaryTextIconBtn;
+    show filledTextIconBtn, clearTextFieldIconBtn;
 import 'package:pudding/common/components/view_wrappers.dart'
     show layoutBuilder;
 import 'package:pudding/common/parts.dart' show Parts, SizingScale;
 import 'package:pudding/common/utils/utils.dart' show unfocus;
-import 'package:pudding/core/navigation/routing.dart';
-import 'package:pudding/features/collections/providers/collections_providers.dart';
 import 'package:validatorless/validatorless.dart';
 
-class NewCollectionFormPanel extends ConsumerStatefulWidget {
-  const NewCollectionFormPanel({super.key});
+// TODO: complete this
+class NewPuddingFormPanel extends ConsumerStatefulWidget {
+  const NewPuddingFormPanel({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _NewCollectionFormPanelState();
 }
 
-class _NewCollectionFormPanelState
-    extends ConsumerState<NewCollectionFormPanel> {
-  final titleFocusNode = FocusNode(debugLabel: 'collectionTitleField');
-  final descFocusNode = FocusNode(debugLabel: 'collectionDescField');
-  final TextEditingController titleCtl = TextEditingController();
-  final TextEditingController descriptionCtl = TextEditingController();
+class _NewCollectionFormPanelState extends ConsumerState<NewPuddingFormPanel> {
+  final urlFocusNode = FocusNode(debugLabel: 'urlField');
+  final notesFocusNode = FocusNode(debugLabel: 'notesField');
+  final TextEditingController urlCtl = TextEditingController();
+  final TextEditingController notesCtl = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    setInitialValues();
-    titleFocusNode.addListener(_updateFocusStatus);
-    descFocusNode.addListener(_updateFocusStatus);
+    urlFocusNode.addListener(_updateFocusStatus);
+    notesFocusNode.addListener(_updateFocusStatus);
     super.initState();
   }
 
   @override
   void dispose() {
-    titleCtl.dispose();
-    descriptionCtl.dispose();
-    titleFocusNode.dispose();
-    descFocusNode.dispose();
+    urlCtl.dispose();
+    notesCtl.dispose();
+    urlFocusNode.dispose();
+    notesFocusNode.dispose();
     super.dispose();
   }
 
-  void setInitialValues() {
-    final String? initialTitleTxt = ref
-        .read(collectionDraftProvider.notifier)
-        .obj
-        ?.title;
-    final String? initialDescTxt = ref
-        .read(collectionDraftProvider.notifier)
-        .obj
-        ?.description;
-    if (initialTitleTxt != null) {
-      titleCtl.text = initialTitleTxt;
-    }
-    if (initialDescTxt != null) {
-      descriptionCtl.text = initialDescTxt;
-    }
-  }
-
   void updateFormData() {
-    final now = Timestamp.now();
-    return ref
-        .read(collectionDraftProvider.notifier)
-        .updateImportantProps(
-          sameCreateUpdateTime: true,
-          now: now,
-          newDes: descriptionCtl.text.trim(),
-          newTitle: titleCtl.text.trim(),
-        );
+    // TODO: complete this
+    // final now = Timestamp.now();
+    // return ref
+    //     .read(collectionDraftProvider.notifier)
+    //     .updateImportantProps(
+    //       sameCreateUpdateTime: true,
+    //       now: now,
+    //       newDes: notesCtl.text.trim(),
+    //       newTitle: urlCtl.text.trim(),
+    //     );
   }
 
   void _updateFocusStatus() => setState(() {});
 
   bool isAnyOfTheFieldsHasFocus() =>
-      titleFocusNode.hasFocus || descFocusNode.hasFocus;
+      urlFocusNode.hasFocus || notesFocusNode.hasFocus;
 
   bool validateForm() {
     final formCheck = formKey.currentState?.validate();
     return formCheck ?? false;
   }
 
-  Future<void> onMoreBtnClicked() async {
-    if (validateForm()) {
-      updateFormData();
-      await SmartDialog.dismiss();
-      await Routing.pushToCollectionDraftScreen();
-    }
-  }
-
-  Future<void> onCreateBtnClicked() async {
+  Future<void> onStartCookingBtnClicked() async {
     updateFormData();
-    final c = ref.read(collectionDraftProvider.notifier).obj;
-    if (validateForm() && c != null) {
-      await ref.read(collectionsRepositoryProvider).addCollection(c);
-      ref.invalidate(collectionDraftProvider);
-      await SmartDialog.dismiss();
-    }
+
+    // TODO: complete this
+    // final c = ref.read(collectionDraftProvider.notifier).obj;
+    // if (validateForm() && c != null) {
+    //   await ref.read(collectionsRepositoryProvider).addCollection(c);
+    //   ref.invalidate(collectionDraftProvider);
+    //   await SmartDialog.dismiss();
+    // }
   }
 
   Widget renderPanel(WidgetRef ref, {double widthFactor = 0.7}) {
@@ -127,22 +101,22 @@ class _NewCollectionFormPanelState
                     vertical: SizingScale.tiny,
                   ),
                   child: TextFormField(
-                    // collection title
-                    controller: titleCtl,
-                    focusNode: titleFocusNode,
+                    // pudding url
+                    controller: urlCtl,
+                    focusNode: urlFocusNode,
                     autofocus: true,
                     keyboardType: TextInputType.text,
                     onTapOutside: (event) => unfocus(context),
                     textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (value) => descFocusNode.requestFocus(),
+                    onFieldSubmitted: (value) => notesFocusNode.requestFocus(),
                     // TODO: localize
-                    validator: Validatorless.required("title is required!"),
+                    validator: Validatorless.required("url is required!"),
                     decoration: InputDecoration(
-                      labelText: 'Title',
+                      labelText: 'URL',
                       filled: true,
-                      icon: const Icon(LucideIcons.bookA),
+                      icon: const Icon(LucideIcons.link2),
                       suffixIcon: clearTextFieldIconBtn(
-                        onPressed: () => titleCtl.clear(),
+                        onPressed: () => urlCtl.clear(),
                       ),
                     ),
                   ),
@@ -150,10 +124,10 @@ class _NewCollectionFormPanelState
                 Padding(
                   padding: Parts.customEdgeInsetsHorizontal(SizingScale.small),
                   child: TextFormField(
-                    // description box
-                    controller: descriptionCtl,
+                    // notes box
+                    controller: notesCtl,
                     maxLines: 2,
-                    focusNode: descFocusNode,
+                    focusNode: notesFocusNode,
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.go,
                     onTapOutside: (event) => unfocus(context),
@@ -161,34 +135,20 @@ class _NewCollectionFormPanelState
                       updateFormData();
                     },
                     decoration: InputDecoration(
-                      labelText: "Descriptions",
-                      icon: const Icon(LucideIcons.caseLower),
+                      labelText: "Notes",
+                      icon: const Icon(LucideIcons.scrollText),
                       suffixIcon: clearTextFieldIconBtn(
-                        onPressed: () => descriptionCtl.clear(),
+                        onPressed: () => notesCtl.clear(),
                       ),
                     ),
                   ),
                 ),
                 Padding(
                   padding: Parts.customEdgeInsetsVertical(SizingScale.small),
-                  child: Wrap(
-                    alignment: WrapAlignment.spaceAround,
-                    runAlignment: WrapAlignment.center,
-                    spacing: SizingScale.small.value,
-                    children: [
-                      secondaryTextIconBtn(
-                        onPressed: () async {
-                          await onMoreBtnClicked();
-                        },
-                        // TODO: localize
-                        text: const Text("More"),
-                      ),
-                      filledTextIconBtn(
-                        onPressed: () async => await onCreateBtnClicked(),
-                        // TODO: localize
-                        text: const Text("CREATE"),
-                      ),
-                    ],
+                  child: filledTextIconBtn(
+                    onPressed: () async => await onStartCookingBtnClicked(),
+                    // TODO: localize
+                    text: const Text("START COOKING"),
                   ),
                 ),
               ],

@@ -11,6 +11,7 @@ import 'package:pudding/common/components/view_wrappers.dart'
     show layoutBuilder;
 import 'package:pudding/common/parts.dart';
 import 'package:pudding/common/utils/show_and.dart';
+import 'package:pudding/common/utils/utils.dart' show unfocus;
 import 'package:pudding/features/auth/providers/auth_providers.dart';
 import 'package:validatorless/validatorless.dart' show Validatorless;
 
@@ -80,7 +81,7 @@ class _SigninEmailPanelState extends ConsumerState<SignupEmailPanel> {
             children: [
               layoutBuilder(
                 smallLayout: renderCont(),
-                bigLayout: renderCont(widthFactor: 0.7, heightFactor: 0.85),
+                bigLayout: renderCont(widthFactor: 0.7),
               ),
               Align(
                 alignment: AlignmentGeometry.topRight,
@@ -95,17 +96,19 @@ class _SigninEmailPanelState extends ConsumerState<SignupEmailPanel> {
     );
   }
 
-  Container renderCont({double heightFactor = 0.5, double widthFactor = 0.9}) {
+  Container renderCont({double widthFactor = 0.9}) {
     return Container(
-      height: MediaQuery.sizeOf(context).height * heightFactor,
+      // height: MediaQuery.sizeOf(context).height * heightFactor,
       width: MediaQuery.sizeOf(context).width * widthFactor,
       decoration: Parts.defaultBoxDecoration,
       child: Form(
         key: formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: signupPanelElements(),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: signupPanelElements(),
+          ),
         ),
       ),
     );
@@ -132,7 +135,7 @@ class _SigninEmailPanelState extends ConsumerState<SignupEmailPanel> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
-          onTapOutside: (event) => FocusScope.of(context).unfocus(),
+          onTapOutside: (event) => unfocus(context),
           onFieldSubmitted: (value) => pswdFocus.requestFocus(),
         ),
       ),
@@ -173,10 +176,13 @@ class _SigninEmailPanelState extends ConsumerState<SignupEmailPanel> {
         // onFieldSubmitted: (_) async => await handleSignUp(),
       ),
 
-      bigTextOnlyBtn(
-        onPressed: () async => await handleSignUp(),
-        // TODO: localize
-        text: const Text("SIGNUP", textAlign: TextAlign.center),
+      Padding(
+        padding: Parts.customEdgeInsetsVertical(SizingScale.small),
+        child: bigTextOnlyBtn(
+          onPressed: () async => await handleSignUp(),
+          // TODO: localize
+          text: const Text("SIGNUP", textAlign: TextAlign.center),
+        ),
       ),
     ];
   }
@@ -218,7 +224,7 @@ class _SigninEmailPanelState extends ConsumerState<SignupEmailPanel> {
         keyboardType: TextInputType.visiblePassword,
         textInputAction: textInputAction,
         onFieldSubmitted: onFieldSubmitted,
-        onTapOutside: (event) => FocusScope.of(context).unfocus(),
+        onTapOutside: (event) => unfocus(context),
         obscureText: !passwordVisible,
       ),
     );

@@ -29,7 +29,7 @@ class PuddingApp extends ConsumerWidget {
         TalkerRouteObserver(logger),
         FlutterSmartDialog.observer,
       ],
-      theme: ThemeData(primarySwatch: Colors.indigo),
+      theme: ThemeData(primarySwatch: Colors.indigo, useMaterial3: true),
       home: const EntryPoint(),
     );
   }

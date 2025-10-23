@@ -123,8 +123,8 @@ class CustomToast extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    logger.verbose("${type.name} toast: $msg");
+  Widget build(BuildContext _) {
+    logger.verbose("${type.name} toast shown: $msg");
 
     return SafeArea(
       child: Align(
@@ -160,13 +160,13 @@ class CustomToast extends StatelessWidget {
   Future<void> showDetailsPanel() async {
     return await SmartDialog.show(
       alignment: Alignment.bottomCenter,
-      builder: (context) {
-        logger.verbose("${type.name} toast details panel: $msgDetails");
+      builder: (ctx) {
+        logger.verbose("${type.name} toast details panel shown: $msgDetails");
 
         return GlassContainer.clearGlass(
           borderRadius: Parts.moreMediumBorderRadius,
-          height: MediaQuery.sizeOf(context).height * 0.46,
-          width: MediaQuery.sizeOf(context).height * 0.9,
+          height: MediaQuery.sizeOf(ctx).height * 0.4,
+          width: MediaQuery.sizeOf(ctx).height * 0.8,
           gradient: LinearGradient(
             colors: [
               getColor().withValues(alpha: 0.2),
@@ -187,7 +187,7 @@ class CustomToast extends StatelessWidget {
             children: [
               Text(
                 msg,
-                style: Theme.of(context).textTheme.headlineMedium,
+                style: Theme.of(ctx).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               if (msgDetails != null)

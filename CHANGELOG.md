@@ -6,6 +6,37 @@ Release history is adapting the [Keep a Changelog](https://keepachangelog.com/en
 
 - Theme config
 - Multi-locales support
+- Add essential auth related functions (e.g. password retrieval)
+- Refactor all custom smart dialog (e.g. panel) to a reusable method.
+
+## Initial Development: [`0.1.7`] - 2025-10-23
+
+### Added
+
+- All in one `utils.dart` file for utility methods.
+
+### Changed
+
+- Draft of the Drawer panel.
+- Code refactored.
+- Draft of the collection creation form.
+- Overall improvement.
+
+### Deprecated
+
+- none
+
+### Removed
+
+- none
+
+### Fixed
+
+- Fixed the overflow of all auth panels when the mobile is displaying wide axis as 'X' axis.
+
+### Others
+
+- Upgraded dependency constraints.
 
 ## Initial Development: [`0.1.6`] - 2025-10-14
 
@@ -30,7 +61,7 @@ Release history is adapting the [Keep a Changelog](https://keepachangelog.com/en
 
 ### Fixed
 
-- Fixed type 'Null' is not a subtype of type 'Object' where it is expected to be return type when routing to Talker page (dev log page).
+- Fixed type 'Null' is not a subtype of type 'Object' where it is expected to be return type when routing to Talker page (dev log page) and other page(s).
 
 ### Others
 

@@ -22,6 +22,19 @@ class Parts {
     );
   }
 
+  /// bidrectional custom offset in [SizingScale] unit
+  ///
+  /// equivalent to `EdgeInsets.symmetric(horizontal: horizontal?.value ??SizingScale.zero.value, vertical:vertical?.value ??SizingScale.zero.value )`
+  static EdgeInsets customEdgeInsetsBidirectional({
+    SizingScale? horizontal,
+    SizingScale? vertical,
+  }) {
+    return EdgeInsets.symmetric(
+      horizontal: horizontal?.value ?? SizingScale.zero.value,
+      vertical: vertical?.value ?? SizingScale.zero.value,
+    );
+  }
+
   /// custom offset from the left of in [SizingScale] unit
   ///
   /// equivalent to `EdgeInsets.only(left:ss.value)`
@@ -103,6 +116,7 @@ class Parts {
     borderRadius: moreMediumBorderRadius,
   );
 
+  /// default style of box decoration
   static final BoxDecoration defaultBoxDecoration = BoxDecoration(
     color: Colors.white,
     borderRadius: Parts.defaultBorderRadius,
@@ -110,6 +124,9 @@ class Parts {
       BoxShadow(color: Colors.grey, blurRadius: 8, spreadRadius: 0.2),
     ],
   );
+
+  /// Duration(milliseconds: 350)
+  static const defaultAnimatedSwitcherDuration = Duration(milliseconds: 350);
 }
 
 /// enum for sizing scale commonly used in defining such value in UI elements

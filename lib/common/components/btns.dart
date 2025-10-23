@@ -4,17 +4,38 @@ import 'package:pudding/common/parts.dart';
 
 /// a beautiful close icon button component
 IconButton closeIconBtn({
-  String tooltip = "close",
+  String tooltip = "close", // TODO: localize
   double size = 40,
   required void Function()? onPressed,
   Color iconColor = Colors.red,
 }) {
   return IconButton(
-    tooltip: tooltip, // TODO: localize
+    tooltip: tooltip,
     iconSize: size,
     enableFeedback: true,
     onPressed: onPressed,
     icon: Icon(LucideIcons.circleX600, color: iconColor),
+  );
+}
+
+/// icon button with trash icon
+///
+/// useful for indicate and perform reset field/clear textbox action
+IconButton clearTextFieldIconBtn({
+  required void Function()? onPressed,
+  double size = 16,
+  String tooltip = 'clear', // TODO: localize
+}) {
+  return IconButton(
+    padding: Parts.customEdgeInsetsBidirectional(
+      horizontal: SizingScale.tiny,
+      vertical: SizingScale.zero,
+    ),
+    onPressed: onPressed,
+    enableFeedback: true,
+    tooltip: tooltip,
+    iconSize: size,
+    icon: const Icon(LucideIcons.trash),
   );
 }
 
@@ -26,7 +47,10 @@ IconButton editableModeIconBtnSwitch({
   int look = 0,
   required void Function()? onPressed,
   required bool isSelected,
-  List<String> tooltip = const ["read only mode", 'edit mode'],
+  List<String> tooltip = const [
+    "read-only mode",
+    'editable mode',
+  ], // TODO: localize
   double size = 32,
 }) {
   final style = IconButton.styleFrom(enableFeedback: true, iconSize: size);
@@ -64,23 +88,19 @@ IconButton editableModeIconBtnSwitch({
 }
 
 /// big size button with text only
-Padding bigTextOnlyBtn({
+ElevatedButton bigTextOnlyBtn({
   required void Function()? onPressed,
-  bool addPadding = true,
   Text text = const Text("BTN"),
 }) {
-  return Padding(
-    padding: addPadding ? Parts.smallEdgeInsetsAll : Parts.zeroEdgeInsets,
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        shape: Parts.defaultShapeOutlinedBorder,
-        enableFeedback: true,
-        elevation: 16,
-        minimumSize: const Size.square(65),
-      ),
-      onPressed: onPressed,
-      child: text,
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      shape: Parts.defaultShapeOutlinedBorder,
+      enableFeedback: true,
+      elevation: 16,
+      minimumSize: const Size.square(65),
     ),
+    onPressed: onPressed,
+    child: text,
   );
 }
 

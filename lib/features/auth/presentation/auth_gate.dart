@@ -38,7 +38,7 @@ class AuthGate extends ConsumerWidget {
             ),
             body: loginOptionsSelectionView(),
             floatingActionButton: renderSignupEmailBtn(),
-            bottomSheet: AppInfoCont(),
+            bottomSheet: const AppInfoCont(),
           );
         } else {
           SmartDialog.dismiss(force: true);
