@@ -1,4 +1,3 @@
-import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' show Timestamp;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +6,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pudding/common/components/btns.dart'
     show filledTextIconBtn, clearTextFieldIconBtn, secondaryTextIconBtn;
 import 'package:pudding/common/components/view_wrappers.dart'
-    show layoutBuilder;
+    show layoutBuilder, blurryBackgroundContent;
 import 'package:pudding/common/parts.dart' show Parts, SizingScale;
 import 'package:pudding/common/utils/utils.dart' show unfocus;
 import 'package:pudding/core/navigation/routing.dart';
@@ -201,11 +200,8 @@ class _NewCollectionFormPanelState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: BlurryContainer.expand(
-        blur: 2.5,
-        padding: Parts.zeroEdgeInsets,
+    return Center(
+      child: blurryBackgroundContent(
         child: Padding(
           padding: Parts.smallEdgeInsetsAll,
           child: Stack(

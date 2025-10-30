@@ -1,3 +1,4 @@
+import 'package:blurrycontainer/blurrycontainer.dart' show BlurryContainer;
 import 'package:flutter/material.dart';
 import 'package:pudding/common/components/drawer_panel.dart';
 import 'package:pudding/common/parts.dart';
@@ -120,5 +121,17 @@ LayoutBuilder layoutBuilder({
         return bigLayout;
       }
     },
+  );
+}
+
+/// creates a blurry background for the given [child]
+Widget blurryBackgroundContent({required Widget child, double blur = 2.5}) {
+  return Scaffold(
+    backgroundColor: Colors.transparent,
+    body: BlurryContainer.expand(
+      blur: blur,
+      padding: Parts.zeroEdgeInsets,
+      child: child,
+    ),
   );
 }

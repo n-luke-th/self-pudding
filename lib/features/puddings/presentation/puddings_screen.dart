@@ -10,6 +10,7 @@ import 'package:pudding/features/puddings/data/pudding_model.dart';
 import 'package:pudding/features/puddings/providers/puddings_providers.dart';
 
 // TODO: complete this
+/// screen that display a list of puddings
 class PuddingsScreen extends ConsumerWidget {
   final String collectionId;
   final String collectionTitle;

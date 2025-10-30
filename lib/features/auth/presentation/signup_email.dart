@@ -1,4 +1,3 @@
-import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +7,7 @@ import 'package:pudding/common/components/btns.dart'
     show closeIconBtn, bigTextOnlyBtn;
 import 'package:pudding/common/components/loading_overlay.dart';
 import 'package:pudding/common/components/view_wrappers.dart'
-    show layoutBuilder;
+    show layoutBuilder, blurryBackgroundContent;
 import 'package:pudding/common/parts.dart';
 import 'package:pudding/common/utils/show_and.dart';
 import 'package:pudding/common/utils/utils.dart' show unfocus;
@@ -69,28 +68,23 @@ class _SigninEmailPanelState extends ConsumerState<SignupEmailPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: BlurryContainer(
-        blur: 2.5,
-        padding: Parts.zeroEdgeInsets,
-        child: Padding(
-          padding: Parts.defaultEdgeInsetsAll,
-          child: Stack(
-            alignment: AlignmentGeometry.center,
-            children: [
-              layoutBuilder(
-                smallLayout: renderCont(),
-                bigLayout: renderCont(widthFactor: 0.7),
+    return blurryBackgroundContent(
+      child: Padding(
+        padding: Parts.defaultEdgeInsetsAll,
+        child: Stack(
+          alignment: AlignmentGeometry.center,
+          children: [
+            layoutBuilder(
+              smallLayout: renderCont(),
+              bigLayout: renderCont(widthFactor: 0.7),
+            ),
+            Align(
+              alignment: AlignmentGeometry.topRight,
+              child: closeIconBtn(
+                onPressed: () => SmartDialog.dismiss(force: true),
               ),
-              Align(
-                alignment: AlignmentGeometry.topRight,
-                child: closeIconBtn(
-                  onPressed: () => SmartDialog.dismiss(force: true),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

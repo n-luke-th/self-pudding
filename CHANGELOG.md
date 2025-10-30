@@ -7,13 +7,43 @@ Release history is adapting the [Keep a Changelog](https://keepachangelog.com/en
 - Theme config
 - Multi-locales support
 - Add essential auth related functions (e.g. password retrieval)
-- Refactor all custom smart dialog (e.g. panel) to a reusable method.
+
+## Initial Development: [`0.1.8`] - 2025-10-30
+
+### Added
+
+- Platform adaptive logout confirmation dialog.
+- Added success toast when user successfully login with email.
+
+### Changed
+
+- Overall improvement.
+- Refactored blurry background panels to a reusable method.
+- More complete drawer design and elements.
+- `CollectionDraftScreen` is now `CookingCollectionScreen`.
+
+### Deprecated
+
+- none
+
+### Removed
+
+- none
+
+### Fixed
+
+- Fixed sometime the login with email panel is not disappear when the login is success.
+
+### Others
+
+- Included `cupertino_icons` direct dependency and upgraded the dependency constraints.
 
 ## Initial Development: [`0.1.7`] - 2025-10-23
 
 ### Added
 
 - All in one `utils.dart` file for utility methods.
+- Draft of the new Pudding form panel.
 
 ### Changed
 

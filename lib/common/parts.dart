@@ -7,18 +7,18 @@ class Parts {
 
   /// full custom offset in [SizingScale] unit
   ///
-  /// equivalent to `EdgeInsets.only(left:left.value,right:right.value,top:top.value,bottom:bottom.value)`
+  /// equivalent to `EdgeInsets.fromLTRB(left?.value ?? SizingScale.zero.value,top?.value ?? SizingScale.zero.value,right?.value ?? SizingScale.zero.value,bottom?.value ?? SizingScale.zero.value;`
   static EdgeInsets customEdgeInsetsFull({
     SizingScale? left,
     SizingScale? right,
     SizingScale? top,
     SizingScale? bottom,
   }) {
-    return EdgeInsets.only(
-      left: left?.value ?? SizingScale.zero.value,
-      right: right?.value ?? SizingScale.zero.value,
-      top: top?.value ?? SizingScale.zero.value,
-      bottom: bottom?.value ?? SizingScale.zero.value,
+    return EdgeInsets.fromLTRB(
+      left?.value ?? SizingScale.zero.value,
+      top?.value ?? SizingScale.zero.value,
+      right?.value ?? SizingScale.zero.value,
+      bottom?.value ?? SizingScale.zero.value,
     );
   }
 
@@ -39,25 +39,25 @@ class Parts {
   ///
   /// equivalent to `EdgeInsets.only(left:ss.value)`
   static EdgeInsets customEdgeInsetsLeft(SizingScale ss) =>
-      customEdgeInsetsFull(left: ss);
+      EdgeInsets.only(left: ss.value);
 
   /// custom offset from the right of in [SizingScale] unit
   ///
   /// equivalent to `EdgeInsets.only(right:ss.value)`
   static EdgeInsets customEdgeInsetsRight(SizingScale ss) =>
-      customEdgeInsetsFull(right: ss);
+      EdgeInsets.only(right: ss.value);
 
   /// custom offset from the top of in [SizingScale] unit
   ///
   /// equivalent to `EdgeInsets.only(top:ss.value)`
   static EdgeInsets customEdgeInsetsTop(SizingScale ss) =>
-      customEdgeInsetsFull(top: ss);
+      EdgeInsets.only(top: ss.value);
 
   /// custom offset from the bottom of in [SizingScale] unit
   ///
   /// equivalent to `EdgeInsets.only(bottom:ss.value)`
   static EdgeInsets customEdgeInsetsBottom(SizingScale ss) =>
-      customEdgeInsetsFull(bottom: ss);
+      EdgeInsets.only(bottom: ss.value);
 
   /// custom offset vertically of in [SizingScale] unit
   ///

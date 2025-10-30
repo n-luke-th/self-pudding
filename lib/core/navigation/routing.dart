@@ -3,7 +3,7 @@ import 'package:pudding/core/logger/logger_providers.dart'
     show TalkerScreen, logger;
 import 'package:pudding/core/navigation/navigation.dart';
 import 'package:pudding/features/collections/data/collection_model.dart';
-import 'package:pudding/features/collections/presentation/collection_draft_screen.dart';
+import 'package:pudding/features/collections/presentation/cooking_collection_screen.dart';
 import 'package:pudding/features/puddings/presentation/puddings_screen.dart';
 
 /// a class that use for routing between pages
@@ -45,7 +45,7 @@ class Routing {
     return await nav.push(
       MaterialPageRoute(
         settings: RouteSettings(name: 'collection-draft'),
-        builder: (_) => const CollectionDraftScreen(),
+        builder: (_) => const CookingCollectionScreen(),
       ),
     );
   }

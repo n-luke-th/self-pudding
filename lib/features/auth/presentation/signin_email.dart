@@ -1,14 +1,13 @@
-import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pudding/common/components/btns.dart'
-    show closeIconBtn, bigTextOnlyBtn;
+    show closeIconBtn, bigTextOnlyBtn, clearTextFieldIconBtn;
 import 'package:pudding/common/components/loading_overlay.dart';
 import 'package:pudding/common/components/view_wrappers.dart'
-    show layoutBuilder;
+    show layoutBuilder, blurryBackgroundContent;
 import 'package:pudding/common/parts.dart';
 import 'package:pudding/common/utils/show_and.dart';
 import 'package:pudding/common/utils/utils.dart' show unfocus;
@@ -44,12 +43,22 @@ class _SigninEmailPanelState extends ConsumerState<SigninEmailPanel> {
     try {
       if (formKey.currentState!.validate()) {
         LoadingOverlay.showDefaultLoading(msg: "Signing you in");
-        await ref
+        return await ref
             .read(authRepositoryProvider)
-            .signInWithEmail(email: emailCtl.text.trim(), pwd: pswdCtl.text);
-        pswdCtl.clear();
+            .signInWithEmail(email: emailCtl.text.trim(), pwd: pswdCtl.text)
+            .then((_) {
+              SmartDialog.dismiss(force: true);
+              Future.delayed(
+                const Duration(milliseconds: 10),
+                () => showSuccessToastAndLog(
+                  msg: "Welcome to Pudding!",
+                  msgDetails: ref
+                      .read(authRepositoryProvider)
+                      .currentUserDisplayNameOrEmail,
+                ),
+              );
+            });
       }
-      // SmartDialog.dismiss(force: true);
     } catch (e, st) {
       if (e is FirebaseAuthException) {
         showErrorToastAndLog(e: e, st: st, msg: e.code, msgDetails: e.message);
@@ -63,40 +72,35 @@ class _SigninEmailPanelState extends ConsumerState<SigninEmailPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: BlurryContainer(
-        blur: 2.5,
-        padding: Parts.zeroEdgeInsets,
-        child: Padding(
-          padding: Parts.defaultEdgeInsetsAll,
-          child: Stack(
-            alignment: AlignmentGeometry.center,
-            children: [
-              layoutBuilder(
-                smallLayout: renderCont(),
-                bigLayout: renderCont(widthFactor: 0.7),
+    return blurryBackgroundContent(
+      child: Padding(
+        padding: Parts.defaultEdgeInsetsAll,
+        child: Stack(
+          alignment: AlignmentGeometry.center,
+          children: [
+            layoutBuilder(
+              smallLayout: renderCont(),
+              bigLayout: renderCont(widthFactor: 0.7),
+            ),
+            Align(
+              alignment: AlignmentGeometry.topRight,
+              child: closeIconBtn(
+                onPressed: () => SmartDialog.dismiss(force: true),
               ),
-              Align(
-                alignment: AlignmentGeometry.topRight,
-                child: closeIconBtn(
-                  onPressed: () => SmartDialog.dismiss(force: true),
-                ),
-              ),
-              // test toast only
-              // Align(
-              //   alignment: AlignmentGeometry.topLeft,
-              //   child: IconButton.outlined(
-              //     onPressed: () => showErrorToastAndThrow(
-              //       msg: "invalid-credential",
-              //       msgDetails:
-              //           "Given credential is incorrect, malformed or has expired.",
-              //     ),
-              //     icon: Icon(Icons.abc_outlined),
-              //   ),
-              // ),
-            ],
-          ),
+            ),
+            // test toast only
+            // Align(
+            //   alignment: AlignmentGeometry.topLeft,
+            //   child: IconButton.outlined(
+            //     onPressed: () => showErrorToastAndThrow(
+            //       msg: "invalid-credential",
+            //       msgDetails:
+            //           "Given credential is incorrect, malformed or has expired.",
+            //     ),
+            //     icon: Icon(Icons.abc_outlined),
+            //   ),
+            // ),
+          ],
         ),
       ),
     );
@@ -127,11 +131,13 @@ class _SigninEmailPanelState extends ConsumerState<SigninEmailPanel> {
         child: TextFormField(
           // email field
           controller: emailCtl,
-          decoration: const InputDecoration(
+          autocorrect: false,
+          decoration: InputDecoration(
             errorMaxLines: 2,
             labelText: 'email',
             // hintText: "pudding@lukecreated.com",
-            icon: Icon(LucideIcons.mail),
+            icon: const Icon(LucideIcons.mail),
+            // suffix: clearTextFieldIconBtn(onPressed: () => emailCtl.clear()),
           ),
           // TODO: add localized text for email validator
           validator: Validatorless.multiple([

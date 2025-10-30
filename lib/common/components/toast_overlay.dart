@@ -11,6 +11,14 @@ class ToastOverlay {
   const ToastOverlay._();
   static const Duration displayTime = Duration(seconds: 3);
 
+  static Future<void> _show({
+    required Widget Function(BuildContext) builder,
+  }) async => await SmartDialog.show(
+    displayTime: displayTime,
+    useAnimation: true,
+    builder: builder,
+  );
+
   /// display the generic toast
   ///
   /// for combination of show toast and some actions please refer to file `show_and.dart`
@@ -18,11 +26,20 @@ class ToastOverlay {
     required String msg,
     String? details,
   }) async {
-    return await SmartDialog.show(
-      displayTime: displayTime,
-      useAnimation: true,
-      builder: (context) =>
+    return await _show(
+      builder: (_) =>
           CustomToast(msg: msg, type: ToastType.generic, msgDetails: details),
+    );
+  }
+
+  /// display the success toast
+  static Future<void> showSuccessToast({
+    required String msg,
+    String? details,
+  }) async {
+    return await _show(
+      builder: (_) =>
+          CustomToast(msg: msg, msgDetails: details, type: ToastType.success),
     );
   }
 
@@ -33,10 +50,8 @@ class ToastOverlay {
     required String msg,
     String? details,
   }) async {
-    return await SmartDialog.show(
-      displayTime: displayTime,
-      useAnimation: true,
-      builder: (context) =>
+    return await _show(
+      builder: (_) =>
           CustomToast(msg: msg, type: ToastType.error, msgDetails: details),
     );
   }
@@ -45,21 +60,33 @@ class ToastOverlay {
 /// used to distinguish different types of toast to display
 enum ToastType {
   /// success
+  ///
+  /// e.g. attempt to such operation is done/success without errors
   success,
 
   /// failure
+  ///
+  /// e.g. attempt to such operation is failed to complete
   failure,
 
   /// warning
+  ///
+  /// e.g. attempt to such operation is done with warning
   warning,
 
   /// error
+  ///
+  /// e.g. attempt to such operation occurred an error or errors
   error,
 
   /// info
+  ///
+  /// e.g. such operation displays more information
   info,
 
   /// generic
+  ///
+  /// a generic
   generic,
 }
 
@@ -124,7 +151,7 @@ class CustomToast extends StatelessWidget {
 
   @override
   Widget build(BuildContext _) {
-    logger.verbose("${type.name} toast shown: $msg");
+    logger.verbose("${type.name} toast shown: $msg; $msgDetails");
 
     return SafeArea(
       child: Align(

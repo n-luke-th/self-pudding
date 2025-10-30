@@ -10,16 +10,17 @@ import 'package:pudding/features/collections/providers/collections_providers.dar
     show collectionDraftProvider;
 import 'package:validatorless/validatorless.dart';
 
-/// also known as `CookingCollectionScreen`
-class CollectionDraftScreen extends ConsumerStatefulWidget {
-  const CollectionDraftScreen({super.key});
+// TODO: complete this
+class CookingCollectionScreen extends ConsumerStatefulWidget {
+  const CookingCollectionScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _CollectionDraftScreenState();
 }
 
-class _CollectionDraftScreenState extends ConsumerState<CollectionDraftScreen> {
+class _CollectionDraftScreenState
+    extends ConsumerState<CookingCollectionScreen> {
   final TextEditingController titleCtl = TextEditingController();
   final TextEditingController descriptionCtl = TextEditingController();
   bool isEditable = true;

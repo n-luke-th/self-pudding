@@ -1,4 +1,3 @@
-import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -6,7 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:pudding/common/components/btns.dart'
     show filledTextIconBtn, clearTextFieldIconBtn;
 import 'package:pudding/common/components/view_wrappers.dart'
-    show layoutBuilder;
+    show layoutBuilder, blurryBackgroundContent;
 import 'package:pudding/common/parts.dart' show Parts, SizingScale;
 import 'package:pudding/common/utils/utils.dart' show unfocus;
 import 'package:validatorless/validatorless.dart';
@@ -161,37 +160,32 @@ class _NewCollectionFormPanelState extends ConsumerState<NewPuddingFormPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: BlurryContainer.expand(
-        blur: 2.5,
-        padding: Parts.zeroEdgeInsets,
-        child: Padding(
-          padding: Parts.smallEdgeInsetsAll,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              layoutBuilder(
-                smallLayout: renderPanel(ref, widthFactor: 0.82),
-                bigLayout: renderPanel(ref, widthFactor: 0.5),
-              ),
-              // TODO: localize
-              Visibility(
-                visible: !isAnyOfTheFieldsHasFocus(),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: filledTextIconBtn(
-                    tonal: true,
-                    onPressed: () async {
-                      updateFormData();
-                      await SmartDialog.dismiss();
-                    },
-                    text: const Text("CANCEL", textAlign: TextAlign.center),
-                  ),
+    return blurryBackgroundContent(
+      child: Padding(
+        padding: Parts.smallEdgeInsetsAll,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            layoutBuilder(
+              smallLayout: renderPanel(ref, widthFactor: 0.82),
+              bigLayout: renderPanel(ref, widthFactor: 0.5),
+            ),
+            // TODO: localize
+            Visibility(
+              visible: !isAnyOfTheFieldsHasFocus(),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: filledTextIconBtn(
+                  tonal: true,
+                  onPressed: () async {
+                    updateFormData();
+                    await SmartDialog.dismiss();
+                  },
+                  text: const Text("CANCEL", textAlign: TextAlign.center),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

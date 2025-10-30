@@ -1,4 +1,3 @@
-import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuthException;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +6,7 @@ import 'package:pudding/common/components/btns.dart'
     show closeIconBtn, bigTextOnlyBtn;
 import 'package:pudding/common/components/loading_overlay.dart';
 import 'package:pudding/common/components/view_wrappers.dart'
-    show layoutBuilder;
+    show layoutBuilder, blurryBackgroundContent;
 import 'package:pudding/common/parts.dart';
 import 'package:pudding/common/utils/show_and.dart';
 import 'package:pudding/features/auth/providers/auth_providers.dart';
@@ -36,9 +35,7 @@ class SigninAnonyPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return BlurryContainer(
-      blur: 2.5,
-      padding: Parts.zeroEdgeInsets,
+    return blurryBackgroundContent(
       child: Padding(
         padding: Parts.defaultEdgeInsetsAll,
         child: Stack(

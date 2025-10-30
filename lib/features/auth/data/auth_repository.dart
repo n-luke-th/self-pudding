@@ -34,13 +34,19 @@ class AuthRepository {
 
   String? get currentLanguageCode => _auth.languageCode;
 
+  String? get currentUserDisplayNameOrEmail =>
+      isSignIn ? (currentUserDisplayName ?? currentUserEmail) : null;
+
   /// method for create an account with email and password
-  Future<void> signUpWithEmail({
+  Future<UserCredential> signUpWithEmail({
     required String email,
     required String pwd,
   }) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: pwd);
+      return await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: pwd,
+      );
     } catch (e, st) {
       logger.error("Sign-up with email process has error", e, st);
       rethrow;
@@ -50,12 +56,15 @@ class AuthRepository {
   }
 
   /// method for sign-in with given email and password
-  Future<void> signInWithEmail({
+  Future<UserCredential> signInWithEmail({
     required String email,
     required String pwd,
   }) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: pwd);
+      return await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: pwd,
+      );
     } catch (e, st) {
       logger.error("Sign-in with email process has error", e, st);
       rethrow;
@@ -65,11 +74,11 @@ class AuthRepository {
   }
 
   /// A simple method for anonymous sign-in
-  Future<void> signInAnonymously() async {
+  Future<UserCredential> signInAnonymously() async {
     try {
-      await _auth.signInAnonymously();
+      return await _auth.signInAnonymously();
     } catch (e, st) {
-      logger.handle(e, st, "Sign in anonymously process has error");
+      logger.error("Sign in anonymously process has error", e, st);
       rethrow;
     } finally {
       logger.verbose("sign-in anonymously process done");
@@ -79,9 +88,10 @@ class AuthRepository {
   /// signs user out of the session
   Future<void> signOut() async {
     try {
-      await _auth.signOut();
+      return await _auth.signOut();
     } catch (e, st) {
-      logger.handle(e, st, "Sign out process has error");
+      logger.error("Sign out process has error", e, st);
+      rethrow;
     } finally {
       logger.verbose("sign out process done");
     }

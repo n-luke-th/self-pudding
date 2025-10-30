@@ -2,7 +2,7 @@ name: pudding
 description: "A Flutter project designed for a couple to pudding (putting) things on the lists for future reference"
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.1.7
+version: 0.1.8
 
 environment:
   sdk: ^3.9.2
@@ -37,6 +37,7 @@ dependencies:
   lucide_icons_flutter: ^3.1.5
   package_info_plus: ^9.0.0
   choice: ^2.3.2
+  cupertino_icons: ^1.0.8
 
 dev_dependencies:
   flutter_test:
