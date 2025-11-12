@@ -7,6 +7,8 @@ Release history is adapting the [Keep a Changelog](https://keepachangelog.com/en
 - Theme config
 - Multi-locales support
 - Add essential auth related functions (e.g. password retrieval)
+- Add Analytic and Crash report
+- Add report and block violence actions or contents
 
 ## Initial Development: [`0.1.8`] - 2025-10-30
 

@@ -14,3 +14,4 @@ ios/Runner/GoogleService-Info.plist
 .vscode/
 .idea/
 build/
+pudding-upload-keystore.jks
